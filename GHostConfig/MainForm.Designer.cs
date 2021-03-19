@@ -936,7 +936,6 @@ namespace MajorBBS.GHost
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GHost/2 Configuration";
-            this.Load += new System.EventHandler(this.chkRUNBBS_CheckedChanged);
             this.tabControl1.ResumeLayout(false);
             this.tabAbout.ResumeLayout(false);
             this.tabAbout.PerformLayout();

@@ -1,0 +1,17 @@
+﻿; List the user names you want to ban from your server below.  The defaults are attempts I see on my server all the time.
+;
+; If someone tries to register with one of these names, it will be rejected
+;
+; If someone tries to logon with one of these names, future connection attempts from them will be rejected for 10 minutes
+adm
+admin
+comcast
+cusadmin
+netman
+operator
+patrol
+root
+sh
+support
+ubnt
+user

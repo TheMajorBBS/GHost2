@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RloginClient": {
+      "commandName": "Project",
+      "commandLineArgs": "-p 665 -n 192.168.0.19 -t xtrn=usurper64"
+    }
+  }
+}

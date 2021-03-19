@@ -1,0 +1,26 @@
+﻿<Window x:Class="GameEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GameEditor"
+        mc:Ignorable="d"
+        Title="Game Editor" Height="278.054" Width="412.213" ResizeMode="NoResize">
+    <Grid>
+        <TextBox x:Name="textName" HorizontalAlignment="Left" Height="23" Margin="124,14,0,0" TextWrapping="Wrap" Text="textName" VerticalAlignment="Top" Width="254"/>
+        <Label Content="Name" HorizontalAlignment="Left" Margin="78,10,0,0" VerticalAlignment="Top"/>
+        <Label Content="Command" HorizontalAlignment="Left" Margin="54,41,0,0" VerticalAlignment="Top"/>
+        <Label Content="Parameters" HorizontalAlignment="Left" Margin="51,72,0,0" VerticalAlignment="Top"/>
+        <Label Content="Platform" HorizontalAlignment="Left" Margin="64,98,0,0" VerticalAlignment="Top"/>
+        <Label Content="Authorization" HorizontalAlignment="Left" Margin="37,129,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="textCommand" HorizontalAlignment="Left" Height="23" Margin="124,45,0,0" TextWrapping="Wrap" Text="textCommand" VerticalAlignment="Top" Width="254"/>
+        <TextBox x:Name="textParameters" HorizontalAlignment="Left" Height="23" Margin="124,76,0,0" TextWrapping="Wrap" Text="textParameters" VerticalAlignment="Top" Width="254"/>
+        <ComboBox x:Name="cbPlatforms" HorizontalAlignment="Left" Margin="124,104,0,0" VerticalAlignment="Top" Width="254"/>
+        <TextBox x:Name="textAuthorization" HorizontalAlignment="Left" Height="23" Margin="124,133,0,0" TextWrapping="Wrap" Text="textAuthorization" VerticalAlignment="Top" Width="254"/>
+        <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="183,206,0,0" VerticalAlignment="Top" Width="75" IsDefault="True" Click="btnSave_Click"/>
+        <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="303,206,0,0" VerticalAlignment="Top" Width="75" IsCancel="True" Click="btnCancel_Click"/>
+        <CheckBox x:Name="chkClearBefore" Content="Clear Screen Before Loading" HorizontalAlignment="Left" Margin="124,161,0,0" VerticalAlignment="Top"/>
+        <CheckBox x:Name="chkClearAfter" Content="Clear Screen After Loading" HorizontalAlignment="Left" Margin="124,182,0,0" VerticalAlignment="Top"/>
+
+    </Grid>
+</Window>

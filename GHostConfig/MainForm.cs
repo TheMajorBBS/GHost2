@@ -58,7 +58,7 @@ namespace MajorBBS.GHost
             if (lsboxDoors.Text == "") return;
 
             string doorName = mapDoors[lsboxDoors.Text];
-            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "GameEditor.exe"), doorName);
+            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "DoorEditor.exe"), doorName);
         }
 
         private void btnPlatformEdit_Click(object sender, EventArgs e)
@@ -128,7 +128,7 @@ namespace MajorBBS.GHost
                         "Authorization=+[default]",
                     };
                     File.WriteAllLines(filepath, lines);
-                    Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "GameEditor.exe"), fileName);
+                    Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "DoorEditor.exe"), fileName);
                 }
             }
         }

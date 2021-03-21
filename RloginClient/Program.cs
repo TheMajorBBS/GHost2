@@ -169,7 +169,7 @@ namespace MajorBBS.GHost
                     {
                         var msg = String.Format("\0\0{0}\0{1}\0{2}\0", localUser, remoteUser, terminal);
                         FormatBuffer(sendBuffer, msg);
-                      
+
                         rc = clientSocket.Send(sendBuffer);
                         Console.WriteLine("Client: send() is OK...TCP...");
                         Console.WriteLine("Client: Sent request of {0} bytes", rc);

@@ -253,7 +253,7 @@ namespace MajorBBS.GHost
             if (lsboxDoors.Text == "") return;
 
             string doorName = mapDoors[lsboxDoors.Text];
-            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "GameEditor.exe"), doorName);
+            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "DoorEditor.exe"), doorName);
         }
 
         #region Windows Form Designer generated code

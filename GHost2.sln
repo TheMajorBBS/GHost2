@@ -17,11 +17,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GHostConfig", "GHostConfig\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SupportFiles", "SupportFiles\SupportFiles.csproj", "{6718AABB-0FA8-44E7-A3B2-13A9FF71C478}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorEditor", "GameEditor\DoorEditor.csproj", "{8A117B22-BD8B-469D-9D05-7D8566EE484E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoorEditor", "DoorEditor\DoorEditor.csproj", "{8A117B22-BD8B-469D-9D05-7D8566EE484E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RMLib", "RMLib\RMLib.csproj", "{C57F0D98-F290-42C1-97BD-CD85B47A2FB4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RloginClient", "RloginClient\RloginClient.csproj", "{F831800B-36F6-4507-98EA-48EB01201D61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RLoginClient", "RLoginClient\RLoginClient.csproj", "{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -89,18 +89,18 @@ Global
 		{C57F0D98-F290-42C1-97BD-CD85B47A2FB4}.Release|x64.Build.0 = Release|x64
 		{C57F0D98-F290-42C1-97BD-CD85B47A2FB4}.Release|x86.ActiveCfg = Release|x86
 		{C57F0D98-F290-42C1-97BD-CD85B47A2FB4}.Release|x86.Build.0 = Release|x86
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Debug|x64.Build.0 = Debug|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Debug|x86.Build.0 = Debug|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Release|x64.ActiveCfg = Release|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Release|x64.Build.0 = Release|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Release|x86.ActiveCfg = Release|Any CPU
-		{F831800B-36F6-4507-98EA-48EB01201D61}.Release|x86.Build.0 = Release|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Debug|x64.Build.0 = Debug|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Debug|x86.Build.0 = Debug|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Release|x64.ActiveCfg = Release|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Release|x64.Build.0 = Release|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Release|x86.ActiveCfg = Release|Any CPU
+		{C8A7B304-EEF6-4C09-A17E-D00F8E6E23D6}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

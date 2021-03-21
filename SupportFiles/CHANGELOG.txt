@@ -3,5 +3,5 @@ x = Bug fix   + = Feature addition  - = Refactored
 -=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-
 [2021]
 Mar 1st (v1.0)
-  - Complete overhaul done on Rick Parrish's GameSrv alpha.
+  - This will be changed when there is an official release.
   

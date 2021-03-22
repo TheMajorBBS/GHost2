@@ -35,10 +35,6 @@ namespace MajorBBS.GHost
             try
             {
                 InitializeComponent();
-
-                DoorInfo Door = new DoorInfo("RUNBBS");
-                chkRUNBBS.Checked = Door.Loaded;
-
             }
             catch (Exception err)
             {
@@ -57,44 +53,12 @@ namespace MajorBBS.GHost
             CreatePlatformList();
         }
 
-        private void chkRUNBBS_CheckedChanged(object sender, EventArgs e)
-        {
-            try
-            {
-                DoorInfo Door = new DoorInfo("RUNBBS");
-                string EnabledFileName = Door.FileName;
-                string DisabledFileName = StringUtils.PathCombine(Path.GetDirectoryName(Door.FileName), "_" + Path.GetFileName(Door.FileName));
-
-                if (chkRUNBBS.Checked)
-                {
-                    // If we don't have a RUNBBS.INI but we have a _RUNBBS.INI, rename it to RUNBBS.INI
-                    if ((!File.Exists(EnabledFileName)) && (File.Exists(DisabledFileName)))
-                    {
-                        FileUtils.FileMove(DisabledFileName, EnabledFileName);
-                    }
-                }
-                else
-                {
-                    // If we have a RUNBBS.INI file, rename it to _RUNBBS.INI
-                    if (File.Exists(EnabledFileName))
-                    {
-                        FileUtils.FileDelete(DisabledFileName);
-                        FileUtils.FileMove(EnabledFileName, DisabledFileName);
-                    }
-                }
-            }
-            catch (Exception err)
-            {
-                ErrorAlert("chkRUNBBS_CheckedChanged Error", err);
-            }
-        }
-
-        private void btnDoorsEdit_Click(object sender, EventArgs e)
+       private void btnDoorsEdit_Click(object sender, EventArgs e)
         {
             if (lsboxDoors.Text == "") return;
 
             string doorName = mapDoors[lsboxDoors.Text];
-            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "GameEditor.exe"), doorName);
+            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "DoorEditor.exe"), doorName);
         }
 
         private void btnPlatformEdit_Click(object sender, EventArgs e)
@@ -164,7 +128,7 @@ namespace MajorBBS.GHost
                         "Authorization=+[default]",
                     };
                     File.WriteAllLines(filepath, lines);
-                    Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "GameEditor.exe"), fileName);
+                    Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "DoorEditor.exe"), fileName);
                 }
             }
         }

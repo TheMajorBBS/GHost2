@@ -253,7 +253,7 @@ namespace MajorBBS.GHost
             if (lsboxDoors.Text == "") return;
 
             string doorName = mapDoors[lsboxDoors.Text];
-            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "GameEditor.exe"), doorName);
+            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "DoorEditor.exe"), doorName);
         }
 
         #region Windows Form Designer generated code
@@ -936,7 +936,6 @@ namespace MajorBBS.GHost
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "GHost/2 Configuration";
-            this.Load += new System.EventHandler(this.chkRUNBBS_CheckedChanged);
             this.tabControl1.ResumeLayout(false);
             this.tabAbout.ResumeLayout(false);
             this.tabAbout.PerformLayout();

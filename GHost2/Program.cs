@@ -52,7 +52,7 @@ namespace MajorBBS.GHost
                 {
                     ServiceApp.Uninstall();
                 }
-                else if (args.Contains("simpleconsole", StringComparer.OrdinalIgnoreCase))
+                else if (args.Contains("simple", StringComparer.OrdinalIgnoreCase))
                 {
                     SimpleConsoleApp.Start();
                 }
@@ -76,7 +76,7 @@ namespace MajorBBS.GHost
             Console.WriteLine("  CONSOLE MODE");
             Console.WriteLine("  ============");
             Console.WriteLine("      Fancy:       GHost.exe console");
-            Console.WriteLine("      Simple:      GHost.exe console simple");
+            Console.WriteLine("      Simple:      GHost.exe simple");
             Console.WriteLine();
             Console.WriteLine("  GUI MODE");
             Console.WriteLine("  ========");

@@ -1,4 +1,5 @@
-bin/Release/*
+bin/
+dist/doors/new/
 
 #################
 ## Eclipse

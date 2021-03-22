@@ -120,37 +120,6 @@
     <None Include="cpulimit.sh">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="doors\amb4031.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\axe118f.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\bre.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\death150.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\dmud097.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\drake3_0.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\exitv320.zip" />
-    <None Include="doors\lord.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\lord2.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\LORE_250.7z">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\mel_352.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="doors\new\AMB4031.zip" />
     <None Include="doors\new\AMB4031\AMB4031\Data\ITEM.DAT" />
     <None Include="doors\new\AMB4031\AMB4031\Data\MAGIC.DAT" />
@@ -322,18 +291,6 @@
     <None Include="doors\new\rokv100\SAMPLE.BAT" />
     <None Include="doors\new\rokv100\TESTERS.DOC" />
     <None Include="doors\new\rokv100\TRAINER.DAT" />
-    <None Include="doors\rmastermind.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\teos.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\tw2002.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="doors\usurper.zip">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="doors\_sample.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -367,13 +324,37 @@
     <None Include="timed-events\ping.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="tools\ansi.com">
+    <None Include="tools\dos\ansi.com">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="tools\fossil.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="tools\NF124-RC.ZIP">
+    <None Include="tools\win\NF124-RC\ANSI.COM">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\win\NF124-RC\FILE_ID.DIZ">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\win\NF124-RC\FOSSIL.CHT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\win\NF124-RC\NET2BBS.ZIP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\win\NF124-RC\NET2SRC.ZIP">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\win\NF124-RC\NETFOS64.COM">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\win\NF124-RC\NETFOSS.COM">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\win\NF124-RC\NF.BAT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="tools\win\NF124-RC\NF64.BAT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="update_from_git.ps1">
@@ -448,20 +429,42 @@
     <Content Include="doors\new\rokv100\ROK.EXE" />
     <Content Include="doors\new\rokv100\ROKCFG.EXE" />
     <Content Include="doors\new\rokv100\ROKINN.TXT" />
+    <Content Include="tools\win\NF124-RC\FOSSIL.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tools\win\NF124-RC\NETCOM.EXE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tools\win\NF124-RC\NETFOS64.DLL">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tools\win\NF124-RC\NETFOSS.DLL">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tools\win\NF124-RC\NETFOSS.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tools\win\NF124-RC\NFU.EXE">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="tools\win\NF124-RC\NFU.TXT">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="LICENSE" />
-    <Content Include="tools\adf.exe">
+    <Content Include="tools\dos\adf.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="tools\pkunzip.exe">
+    <Content Include="tools\dos\pkunzip.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="tools\pkzip.exe">
+    <Content Include="tools\dos\pkzip.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="docs\" />
     <Folder Include="scorebrd\" />
+    <Folder Include="tools\linux\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -57,6 +57,24 @@ namespace MajorBBS.GHost
                     if (_NodeInfo.Connection != null) _NodeInfo.Connection.Dispose();
                 }
 
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+
+                // Remove node directory
+                var currentNode = Environment.CurrentDirectory + "\\node" + _NodeInfo.Node.ToString();
+
+                if (Directory.Exists(currentNode))
+                {
+                    try
+                    {
+                        Directory.Delete(currentNode, true);
+                    }
+                    catch(Exception)
+                    {
+                        RMLog.Warning("Unable to remove node directory (non-fatal)");
+                    }
+                }
+
                 // free unmanaged resources (unmanaged objects)
                 // set large fields to null.
 

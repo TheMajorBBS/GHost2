@@ -40,7 +40,7 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <PropertyGroup>
     <AssemblyOriginatorKeyFile>GameSrv.pfx</AssemblyOriginatorKeyFile>
@@ -129,7 +129,7 @@
     <Compile Include="Classes\UserInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DLL\RMLibUI\RMLibUI.csproj">
+    <ProjectReference Include="..\RMLibUI\RMLibUI.csproj">
       <Project>{01c2c32e-3fc5-4241-9725-d84af6620d78}</Project>
       <Name>RMLibUI</Name>
     </ProjectReference>

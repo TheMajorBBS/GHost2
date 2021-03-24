@@ -49,41 +49,6 @@ namespace MajorBBS.GHost
             );
         }
 
-        private void DeleteNodeFile(string fileName)
-        {
-            FileUtils.FileDelete(
-                StringUtils.PathCombine(
-                    ProcessUtils.StartupPath,
-                    "node" + _ClientThread.NodeInfo.Node.ToString(),
-                    fileName
-                )
-            );
-        }
-
-        private void DeleteNodeDirectory()
-        {
-            if (!Helpers.Debug)
-            {
-                DeleteNodeFile("chain.txt");
-                DeleteNodeFile("door.sys");
-                DeleteNodeFile("door32.sys");
-                DeleteNodeFile("doorfile.sr");
-                DeleteNodeFile("dorinfo.def");
-                DeleteNodeFile("dorinfo1.def");
-                DeleteNodeFile("dorinfo" + _ClientThread.NodeInfo.Node.ToString() + ".def");
-                DeleteNodeFile("dosemu.log");
-                DeleteNodeFile("external.bat");
-                DeleteNodeFile("dosbox.conf");
-
-                FileUtils.DirectoryDelete(
-                    StringUtils.PathCombine(
-                        ProcessUtils.StartupPath,
-                        "node" + _ClientThread.NodeInfo.Node.ToString()
-                    )
-                );
-            }
-        }
-
         private void CreateDropChain()
         {
             List<string> Sl = new List<string>();
@@ -456,7 +421,6 @@ namespace MajorBBS.GHost
                     if (_ClientThread.NodeInfo.Door.ClearScreenAfter) _ClientThread.ClrScr();
                     _ClientThread.NodeInfo.Connection.SetBlocking(true); // In case native door disabled blocking sockets
                     _ClientThread.NodeInfo.Connection.ReadString(); // flush buffer so it doesn't spill out from game
-                    DeleteNodeDirectory();
                 }
                 catch { /* Ignore */ }
             }

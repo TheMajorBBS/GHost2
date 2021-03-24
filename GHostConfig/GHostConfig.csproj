@@ -131,10 +131,6 @@
     <None Include="Resources\ghost.bmp" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\DLL\RMLibUI\RMLibUI.csproj">
-      <Project>{01c2c32e-3fc5-4241-9725-d84af6620d78}</Project>
-      <Name>RMLibUI</Name>
-    </ProjectReference>
     <ProjectReference Include="..\GHost2\GHost2.csproj">
       <Project>{a00fc7a6-aed3-446a-b936-9e1e990465c7}</Project>
       <Name>GHost2</Name>

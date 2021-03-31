@@ -49,5 +49,11 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RMLib\RMLib.csproj">
+      <Project>{c57f0d98-f290-42c1-97bd-cd85b47a2fb4}</Project>
+      <Name>RMLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -24,6 +24,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Sockets;
+using System.Text;
 
 namespace MajorBBS.GHost
 {
@@ -333,18 +335,48 @@ namespace MajorBBS.GHost
                 platformParams += " " + scriptPath;
             }
 
-            using (RMProcess P = new RMProcess())
-            {
-                P.ProcessWaitEvent += _ClientThread.OnDoorWait;
+            /* Create process with environment settings and execute door command.
+             */
+            string platformCmd = Path.Combine(ProcessUtils.StartupPath, ReplaceTokens(platform.Shell));
 
-                ProcessStartInfo PSI = new ProcessStartInfo(ReplaceTokens(platform.Shell), platformParams)
+            Process proc = new Process();
+            ProcessStartInfo PSI = new ProcessStartInfo(platformCmd, platformParams)
+            {
+                WindowStyle = _ClientThread.NodeInfo.Door.WindowStyle,
+                WorkingDirectory = ProcessUtils.StartupPath,
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+            };
+
+            proc.StartInfo = PSI;
+            proc.Start();
+
+            Socket sock = _ClientThread.NodeInfo.Connection.GetSocket();
+
+            while (_ClientThread.NodeInfo.Connection.Connected && !proc.HasExited)
+            {
+                if (platform.RedirectLocal)
                 {
-                    WindowStyle = _ClientThread.NodeInfo.Door.WindowStyle,
-                    WorkingDirectory = ProcessUtils.StartupPath,
-                };
-                P.StartAndWait(PSI);
+                    if (_ClientThread.NodeInfo.Connection.CanRead(100))
+                    {
+                        proc.StandardInput.Write(_ClientThread.NodeInfo.Connection.ReadString());
+                    }
+
+                    string inData = proc.StandardOutput.ReadToEnd();
+                    if (inData != "")
+                    {
+                        sock.Send(Encoding.ASCII.GetBytes(inData));
+                    }
+                }
+
+                string errorStr = proc.StandardError.ReadToEnd();
+                if (errorStr != "")
+                    RMLog.Error(errorStr);
             }
 
+            //proc.WaitForExit();
         }
 
         private void RunOldIniLogic()

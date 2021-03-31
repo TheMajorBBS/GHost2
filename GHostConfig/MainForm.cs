@@ -143,6 +143,13 @@ namespace MajorBBS.GHost
             File.Delete(fileName);
         }
 
+        private void btnDoorsTest_Click(object sender, EventArgs e)
+        {
+            string doorName = mapDoors[lsboxDoors.Text];
+            string args = String.Format("-p {0} -t xtrn={1}", Config.Instance.RLoginServerPort.ToString(), doorName);
+            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "tools\\win", "rlogin.exe"), args);
+        }
+
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -197,5 +204,6 @@ namespace MajorBBS.GHost
             TimedEvent.RemoveSection(eventName);
             CreateTimedEventList();
         }
+
     }
 }

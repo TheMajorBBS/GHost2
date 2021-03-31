@@ -108,7 +108,6 @@
     </Compile>
     <Compile Include="PseudoTerminal.cs" />
     <Compile Include="Threads\ClientThread\Enumerators\Action.cs" />
-    <Compile Include="Threads\ClientThread\Classes\NewUserQuestion.cs" />
     <Compile Include="Threads\ClientThread\Classes\RunDoor.cs" />
     <Compile Include="Threads\ClientThread\Enumerators\ValidationType.cs" />
     <Compile Include="Threads\TimedEventsThread\TimedEvent.cs" />

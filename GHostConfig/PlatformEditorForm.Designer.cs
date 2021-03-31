@@ -1,9 +1,8 @@
 ﻿/*
   GHost/2: Door Server
   Copyleft 2021 Major BBS (GPL3)
-    original: Rick Parrish, R&M Software
 
-  This file is part of GHost/2.
+  This file is part of GHost/2 solution, GHostConfig project.
 
   GHost/2 is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
@@ -61,6 +60,7 @@ namespace MajorBBS.GHost
             this.label5 = new System.Windows.Forms.Label();
             this.txtBootstrapFile = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
+            this.chkRedirectLocal = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -182,6 +182,16 @@ namespace MajorBBS.GHost
             this.label6.TabIndex = 14;
             this.label6.Text = "Example: run.bat or run.sh";
             // 
+            // chkRedirectLocal
+            // 
+            this.chkRedirectLocal.AutoSize = true;
+            this.chkRedirectLocal.Location = new System.Drawing.Point(228, 423);
+            this.chkRedirectLocal.Name = "chkRedirectLocal";
+            this.chkRedirectLocal.Size = new System.Drawing.Size(187, 29);
+            this.chkRedirectLocal.TabIndex = 15;
+            this.chkRedirectLocal.Text = "Redirect Local IO";
+            this.chkRedirectLocal.UseVisualStyleBackColor = true;
+            // 
             // PlatformEditorForm
             // 
             this.AcceptButton = this.btnSave;
@@ -189,6 +199,7 @@ namespace MajorBBS.GHost
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
             this.ClientSize = new System.Drawing.Size(937, 487);
+            this.Controls.Add(this.chkRedirectLocal);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtBootstrapFile);
             this.Controls.Add(this.label5);
@@ -228,5 +239,6 @@ namespace MajorBBS.GHost
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtBootstrapFile;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.CheckBox chkRedirectLocal;
     }
 }

@@ -39,7 +39,7 @@ namespace RandM.RMLib
         public event EventHandler<StringEventArgs> ReadEvent = null;
 
         // Read buffer size
-        protected const int READ_BUFFER_SIZE = 64 * 1024;   // 64k input buffer
+        protected const int READ_BUFFER_SIZE = 512;   // 64k input buffer
 
         // Protected variables
         protected string _LocalHost = "";
@@ -177,6 +177,12 @@ namespace RandM.RMLib
                 _InputBuffer.Enqueue(data);
             }
             _LastByte = data;
+        }
+
+        public void Flush()
+        {
+            _InputBuffer.Clear();
+            _Stream.Flush();
         }
 
         public bool CanAccept()

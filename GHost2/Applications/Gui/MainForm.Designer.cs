@@ -78,9 +78,9 @@ namespace MajorBBS.GHost
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.rtbLog = new System.Windows.Forms.RichTextBox();
-            this.label4 = new System.Windows.Forms.Label();
             this.lblRLoginCount = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.rtbLog = new System.Windows.Forms.RichTextBox();
             this.toolStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -347,18 +347,16 @@ namespace MajorBBS.GHost
             this.tableLayoutPanel1.Size = new System.Drawing.Size(549, 19);
             this.tableLayoutPanel1.TabIndex = 2;
             // 
-            // rtbLog
+            // lblRLoginCount
             // 
-            this.rtbLog.BackColor = System.Drawing.Color.Black;
-            this.rtbLog.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.rtbLog.ForeColor = System.Drawing.Color.LightGray;
-            this.rtbLog.Location = new System.Drawing.Point(0, 0);
-            this.rtbLog.Name = "rtbLog";
-            this.rtbLog.ReadOnly = true;
-            this.rtbLog.Size = new System.Drawing.Size(431, 451);
-            this.rtbLog.TabIndex = 1;
-            this.rtbLog.Text = "";
-            this.rtbLog.DoubleClick += new System.EventHandler(this.rtbLog_DoubleClick);
+            this.lblRLoginCount.AutoSize = true;
+            this.lblRLoginCount.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lblRLoginCount.Location = new System.Drawing.Point(278, 1);
+            this.lblRLoginCount.Name = "lblRLoginCount";
+            this.lblRLoginCount.Size = new System.Drawing.Size(267, 17);
+            this.lblRLoginCount.TabIndex = 5;
+            this.lblRLoginCount.Text = "0";
+            this.lblRLoginCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // label4
             // 
@@ -371,16 +369,18 @@ namespace MajorBBS.GHost
             this.label4.Text = "RLogin";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // lblRLoginCount
+            // rtbLog
             // 
-            this.lblRLoginCount.AutoSize = true;
-            this.lblRLoginCount.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lblRLoginCount.Location = new System.Drawing.Point(278, 1);
-            this.lblRLoginCount.Name = "lblRLoginCount";
-            this.lblRLoginCount.Size = new System.Drawing.Size(267, 17);
-            this.lblRLoginCount.TabIndex = 5;
-            this.lblRLoginCount.Text = "0";
-            this.lblRLoginCount.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.rtbLog.BackColor = System.Drawing.Color.Black;
+            this.rtbLog.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbLog.ForeColor = System.Drawing.Color.LightGray;
+            this.rtbLog.Location = new System.Drawing.Point(0, 0);
+            this.rtbLog.Name = "rtbLog";
+            this.rtbLog.ReadOnly = true;
+            this.rtbLog.Size = new System.Drawing.Size(431, 451);
+            this.rtbLog.TabIndex = 1;
+            this.rtbLog.Text = "";
+            this.rtbLog.DoubleClick += new System.EventHandler(this.rtbLog_DoubleClick);
             // 
             // MainForm
             // 

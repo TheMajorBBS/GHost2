@@ -38,7 +38,6 @@ namespace MajorBBS.GHost
             _ClientThread = clientThread;
         }
 
-
         private void WriteDropFile(string fileName, List<string> lines)
         {
             FileUtils.FileWriteAllText(
@@ -339,7 +338,6 @@ namespace MajorBBS.GHost
              */
             string platformCmd = Path.Combine(ProcessUtils.StartupPath, ReplaceTokens(platform.Shell));
 
-            Process proc = new Process();
             ProcessStartInfo PSI = new ProcessStartInfo(platformCmd, platformParams)
             {
                 WindowStyle = _ClientThread.NodeInfo.Door.WindowStyle,
@@ -350,33 +348,57 @@ namespace MajorBBS.GHost
                 RedirectStandardOutput = true,
             };
 
+            Process proc = new Process();
+            TcpConnection conn = new TcpConnection();
+            conn.Open((int)_ClientThread.NodeInfo.Connection.Handle);
             proc.StartInfo = PSI;
             proc.Start();
 
-            Socket sock = _ClientThread.NodeInfo.Connection.GetSocket();
+            Socket sock = conn.GetSocket();
 
-            while (_ClientThread.NodeInfo.Connection.Connected && !proc.HasExited)
+            while (conn.Connected && !proc.HasExited)
             {
                 if (platform.RedirectLocal)
                 {
-                    if (_ClientThread.NodeInfo.Connection.CanRead(100))
+                    if (conn.CanRead(100))
                     {
-                        proc.StandardInput.Write(_ClientThread.NodeInfo.Connection.ReadString());
+                        proc.StandardInput.Write(conn.ReadString());
                     }
 
-                    string inData = proc.StandardOutput.ReadToEnd();
-                    if (inData != "")
+                    try
                     {
-                        sock.Send(Encoding.ASCII.GetBytes(inData));
+                        string inData = proc.StandardOutput.ReadToEnd();
+                        if (inData != "")
+                        {
+                            //sock.Send(Encoding.ASCII.GetBytes(inData));
+                            conn.Write(inData);
+                        }
+                    } catch(SocketException sockExcept)
+                    {
+                        if (sockExcept.SocketErrorCode == SocketError.NotConnected)
+                        {
+                            proc.Kill();
+                        }
                     }
                 }
 
-                string errorStr = proc.StandardError.ReadToEnd();
-                if (errorStr != "")
-                    RMLog.Error(errorStr);
+                string errorStr = proc.StandardError.ReadLine();
+                if (!platform.SupressErrors && errorStr != "")
+                {
+                    string errFormat = String.Format(
+                        "DOOR ERROR [{0}]: {1}",
+                        _ClientThread.NodeInfo.Door.Name,
+                        errorStr
+                    );
+                    RMLog.Error(errFormat);
+                }
             }
 
-            //proc.WaitForExit();
+            while (!proc.HasExited)
+            {
+                proc.WaitForExit(1000);
+            }
+
         }
 
         private void RunOldIniLogic()

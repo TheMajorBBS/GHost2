@@ -45,6 +45,7 @@ namespace MajorBBS.GHost
             txtShell.Text = platformInfo.Shell;
             txtShellArgs.Text = platformInfo.Arguments;
             chkRedirectLocal.Checked = platformInfo.RedirectLocal;
+            chkSurpressErrors.Checked = platformInfo.SupressErrors;
         }
 
         private void StorePlatform()
@@ -55,6 +56,7 @@ namespace MajorBBS.GHost
             platformInfo.Arguments = txtShellArgs.Text;
             platformInfo.Shell = txtShell.Text;
             platformInfo.RedirectLocal = chkRedirectLocal.Checked;
+            platformInfo.SupressErrors = chkSurpressErrors.Checked;
         }
 
         private void btnCancel_Click(object sender, EventArgs e)

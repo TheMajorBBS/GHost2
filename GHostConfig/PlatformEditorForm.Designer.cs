@@ -61,6 +61,7 @@ namespace MajorBBS.GHost
             this.txtBootstrapFile = new System.Windows.Forms.TextBox();
             this.label6 = new System.Windows.Forms.Label();
             this.chkRedirectLocal = new System.Windows.Forms.CheckBox();
+            this.chkSurpressErrors = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // label1
@@ -104,7 +105,7 @@ namespace MajorBBS.GHost
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(539, 423);
+            this.btnSave.Location = new System.Drawing.Point(539, 450);
             this.btnSave.Margin = new System.Windows.Forms.Padding(6);
             this.btnSave.Name = "btnSave";
             this.btnSave.Size = new System.Drawing.Size(138, 42);
@@ -116,7 +117,7 @@ namespace MajorBBS.GHost
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(709, 423);
+            this.btnCancel.Location = new System.Drawing.Point(709, 450);
             this.btnCancel.Margin = new System.Windows.Forms.Padding(6);
             this.btnCancel.Name = "btnCancel";
             this.btnCancel.Size = new System.Drawing.Size(138, 42);
@@ -192,13 +193,24 @@ namespace MajorBBS.GHost
             this.chkRedirectLocal.Text = "Redirect Local IO";
             this.chkRedirectLocal.UseVisualStyleBackColor = true;
             // 
+            // chkSurpressErrors
+            // 
+            this.chkSurpressErrors.AutoSize = true;
+            this.chkSurpressErrors.Location = new System.Drawing.Point(228, 458);
+            this.chkSurpressErrors.Name = "chkSurpressErrors";
+            this.chkSurpressErrors.Size = new System.Drawing.Size(168, 29);
+            this.chkSurpressErrors.TabIndex = 16;
+            this.chkSurpressErrors.Text = "Supress Errors";
+            this.chkSurpressErrors.UseVisualStyleBackColor = true;
+            // 
             // PlatformEditorForm
             // 
             this.AcceptButton = this.btnSave;
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(937, 487);
+            this.ClientSize = new System.Drawing.Size(937, 528);
+            this.Controls.Add(this.chkSurpressErrors);
             this.Controls.Add(this.chkRedirectLocal);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.txtBootstrapFile);
@@ -240,5 +252,6 @@ namespace MajorBBS.GHost
         private System.Windows.Forms.TextBox txtBootstrapFile;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.CheckBox chkRedirectLocal;
+        private System.Windows.Forms.CheckBox chkSurpressErrors;
     }
 }

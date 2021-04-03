@@ -355,48 +355,68 @@ namespace MajorBBS.GHost
             proc.Start();
 
             Socket sock = conn.GetSocket();
+            byte[] tmp = new byte[1];
 
             while (conn.Connected && !proc.HasExited)
             {
-                if (platform.RedirectLocal)
+                try
                 {
-                    if (conn.CanRead(100))
+
+                    if (platform.RedirectLocal)
                     {
-                        proc.StandardInput.Write(conn.ReadString());
+                        if (conn.CanRead(100))
+                        {
+                            proc.StandardInput.Write(conn.ReadString());
+                        }
+
+                            string inData = proc.StandardOutput.ReadToEnd();
+                            if (inData != "")
+                            {
+                                //sock.Send(Encoding.ASCII.GetBytes(inData));
+                                conn.Write(inData);
+                            }
                     }
 
-                    try
+                    string errorStr = proc.StandardError.ReadLine();
+                    if (errorStr != "" && errorStr != null)
                     {
-                        string inData = proc.StandardOutput.ReadToEnd();
-                        if (inData != "")
+                        if (!platform.SupressErrors)
                         {
-                            //sock.Send(Encoding.ASCII.GetBytes(inData));
-                            conn.Write(inData);
+                            string errFormat = String.Format(
+                                "DOOR ERROR [{0}]: {1}",
+                                _ClientThread.NodeInfo.Door.Name,
+                                errorStr
+                            );
+                            RMLog.Error(errFormat);
                         }
-                    } catch(SocketException sockExcept)
-                    {
-                        if (sockExcept.SocketErrorCode == SocketError.NotConnected)
+
+                        // search error log for DOSBox disconnect.
+                        if (errorStr == "Serial1: Disconnected.")
                         {
+                            RMLog.Error("DOSBox serial disconnect discovered.");
+                            proc.WaitForExit(60000);
                             proc.Kill();
                         }
                     }
-                }
 
-                string errorStr = proc.StandardError.ReadLine();
-                if (!platform.SupressErrors && errorStr != "")
+                    // probe socket to see if it's still connected.
+                    sock.Send(tmp, 0, 0);
+                }
+                catch (SocketException sockExcept)
                 {
-                    string errFormat = String.Format(
-                        "DOOR ERROR [{0}]: {1}",
-                        _ClientThread.NodeInfo.Door.Name,
-                        errorStr
-                    );
-                    RMLog.Error(errFormat);
+                    if (!sockExcept.NativeErrorCode.Equals(10035))
+                    {
+                        string errMsg = String.Format("User {0} has disconnected from '{1}'.", _ClientThread.Alias, _ClientThread.NodeInfo.Door.Name);
+                        RMLog.Error(errMsg);
+                        break;
+                    }
                 }
             }
 
             while (!proc.HasExited)
             {
-                proc.WaitForExit(1000);
+                proc.WaitForExit(60000);
+                proc.Kill();
             }
 
         }

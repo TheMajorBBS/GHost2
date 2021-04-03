@@ -3,8 +3,7 @@
  * Simpler console program for testing rlogin connections.
  */
 using System;
-using System.Net;
-using System.Net.Sockets;
+using RandM.RMLib;
 
 namespace MajorBBS.GHost
 {
@@ -58,8 +57,6 @@ namespace MajorBBS.GHost
         /// <param name="args">Command line arguments</param>
         static void Main(string[] args)
         {
-            SocketType sockType = SocketType.Stream;
-            ProtocolType sockProtocol = ProtocolType.Tcp;
             string remoteHostName = "localhost";
             int remotePort = 513;
             string remoteUser = "tester";
@@ -68,10 +65,11 @@ namespace MajorBBS.GHost
             int bufferSize = 4096;
 
             Console.SetWindowSize(80, 25);
+            Console.SetBufferSize(80, 25);
+            Console.OpenStandardOutput();
+            Console.OpenStandardInput();
             Console.WriteLine("RloginClient");
 
-            sockType = SocketType.Stream;
-            sockProtocol = ProtocolType.Tcp;
 
             // Parse the command line
             for (int i = 0; i < args.Length; i++)
@@ -118,102 +116,42 @@ namespace MajorBBS.GHost
                     return;
                 }
             }
-
-            Socket clientSocket = null;
-            IPHostEntry resolvedHost = null;
-            IPEndPoint destination = null;
-            byte[] sendBuffer = new byte[bufferSize];
-            byte[] recvBuffer = new Byte[bufferSize];
-            int rc;
-
-            try
+            
+            Console.WriteLine("Host:{0}  Port:{1}", remoteHostName, remotePort);
+            Console.WriteLine("Local User:{0}  Remote User:{1}", localUser, remoteUser);
+            Console.WriteLine("Terminal:{0}", terminal);
+            
+            RLoginConnection rlConn = new RLoginConnection(false);
+            
+            if (rlConn.Connect(remoteHostName, remotePort))
             {
-                // Try to resolve the remote host name or address
-                resolvedHost = Dns.GetHostEntry(remoteHostName);
-                Console.WriteLine("Client: GetHostEntry() is OK...");
+                string header = String.Format("\0{0}\0{1}\0{2}\0", localUser, remoteUser, terminal);
+                rlConn.Write(header);
 
-                // Try each address returned
-                foreach (IPAddress addr in resolvedHost.AddressList)
+                while (rlConn.Connected)
                 {
-                    // Create a socket corresponding to the address family of the resolved address
-                    clientSocket = new Socket(
-                        addr.AddressFamily,
-                        sockType,
-                        sockProtocol
-                        );
-                    Console.WriteLine("Client: Socket() is OK...");
-                    try
+                    bool yield = true;
+
+                    if (rlConn.CanRead(100))
                     {
-                        // Create the endpoint that describes the destination
-                        destination = new IPEndPoint(addr, remotePort);
-                        Console.WriteLine("Client: IPEndPoint() is OK. IP Address: {0}, server port: {1}", addr, remotePort);
-
-                        clientSocket.Connect(destination);
-                        Console.WriteLine("Client: Connect() is OK...");
-                        break;
+                        Console.Write(rlConn.ReadString());
+                        yield = false;
                     }
-                    catch (SocketException)
+
+                    if (Console.KeyAvailable)
                     {
-                        // Connect failed, so close the socket and try the next address
-                        clientSocket.Close();
-                        Console.WriteLine("Client: Close() is OK...");
-                        clientSocket = null;
-                        continue;
+                        string inKey = String.Format("{0}", Console.ReadKey(true).KeyChar);
+                        rlConn.Write(inKey);
                     }
-                }
 
-                // Make sure we have a valid socket before trying to use it
-                if ((clientSocket != null) && (destination != null))
-                {
-                    try
-                    {
-                        var msg = String.Format("\0\0{0}\0{1}\0{2}\0", localUser, remoteUser, terminal);
-                        FormatBuffer(sendBuffer, msg);
+                    // See if we need to yield
+                    if (yield) Crt.Delay(1);
 
-                        rc = clientSocket.Send(sendBuffer);
-                        Console.WriteLine("Client: send() is OK...TCP...");
-                        Console.WriteLine("Client: Sent request of {0} bytes", rc);
-
-                        while (true)
-                        {
-                            if (clientSocket.Available > 0)
-                            {
-                                rc = clientSocket.Receive(recvBuffer);
-                                string strBuf = System.Text.Encoding.ASCII.GetString(recvBuffer, 0, recvBuffer.Length);
-                                Console.Write(strBuf);
-                            }
-
-                            if (Console.KeyAvailable)
-                            {
-                                string inKey = String.Format("{0}", Console.ReadKey(true).KeyChar);
-                                sendBuffer = System.Text.Encoding.UTF8.GetBytes(inKey);
-                                clientSocket.Send(sendBuffer);
-                            }
-
-                            // Exit loop if server indicates shutdown
-                            if (rc == 0)
-                            {
-                                clientSocket.Close();
-                                Console.WriteLine("Client: Close() is OK...");
-                                break;
-                            }
-                        }
-                    }
-                    catch (SocketException err)
-                    {
-                        Console.WriteLine("Client: Error occurred while sending or receiving data.");
-                        Console.WriteLine("   Error: {0}", err.Message);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Client: Unable to establish connection to server!");
                 }
             }
-            catch (SocketException err)
-            {
-                Console.WriteLine("Client: Socket error occurred: {0}", err.Message);
-            }
+            rlConn.Close();
+            Console.WriteLine("Connection closed.");
+            Console.ReadKey();
         }
     }
 }

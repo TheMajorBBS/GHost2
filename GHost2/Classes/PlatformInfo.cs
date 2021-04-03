@@ -10,6 +10,8 @@ namespace MajorBBS.GHost
         public string BootstrapName { get; set; } // name of the bootstrap
         public string Bootstrap { get; set; } // bootstrap batch
         public bool IsLoaded { get; set; } // whether or not the platform ini loaded or not.
+        public bool RedirectLocal { get; set; }
+        public bool SupressErrors { get; set; }
 
         public PlatformInfo(string platform)
             : base(ConfigSaveLocation.Relative, StringUtils.PathCombine("platforms", platform.ToLower() + ".ini"))
@@ -20,6 +22,8 @@ namespace MajorBBS.GHost
             BootstrapName = "";
             Bootstrap = "";
             IsLoaded = false;
+            RedirectLocal = false;
+            SupressErrors = true;
 
             if (Load("PLATFORM"))
             {

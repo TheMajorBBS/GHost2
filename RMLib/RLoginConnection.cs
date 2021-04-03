@@ -37,8 +37,10 @@ namespace RandM.RMLib
         const byte RLS_S1 = 3;    // Received first "s" character
         const byte RLS_SS = 5;    // Received second "s" character.  Transmitting screensize info
         const byte RLS_SESSION = 6;
+        const byte END_OF_HEAD_PHASE = 6;
 
         private bool _ExpectHeader = true;
+        private Int16 _HeadPhase = 0;
         private Int16 _RLoginSSBytes = 0;
         private Int16 _RLoginState = RLS_DATA;
         private string _rloginSessionData = "";
@@ -49,6 +51,7 @@ namespace RandM.RMLib
             : base()
         {
             _ExpectHeader = expectHeader;
+            _RLoginState = _ExpectHeader ? RLS_HEADER : RLS_DATA;
         }
 
         public string ClientUserName { get; private set; }
@@ -70,8 +73,14 @@ namespace RandM.RMLib
                 switch (_RLoginState)
                 {
                     case RLS_HEADER:
-                        AddToInputQueue(data[i]);
+                        ParseHeader(Convert.ToByte(data[i]));
                         break;
+
+                /*
+                 * I doubt anything bellow here actually happens while door is running due to the fact 
+                 * that the socket handle (file descriptor) is passed to the process and the stream 
+                 * writer in TCPConnection is not used.
+                 */
                     case RLS_DATA:
                         if (RLC_COOKIE == data[i])
                         {
@@ -125,6 +134,7 @@ namespace RandM.RMLib
                         }
                         break;
                     case RLS_SESSION:
+                        _RLoginState = RLS_DATA;
                         if (RLC_FLAG != data[i])
                         {
                             _rloginSessionData += Convert.ToChar(data[i]);
@@ -149,10 +159,21 @@ namespace RandM.RMLib
                 if (_ExpectHeader)
                 {
                     _RLoginState = RLS_HEADER;
-                    return ParseHeader();
+                    while (_RLoginState != RLS_DATA && Connected) {
+                        CanRead(100);
+                    }
+
+                    /* We have processed head so process anything else
+                     * in buffer and flush buffer.
+                     */
+                    CanRead(1000);
+                    Flush();
+                    
+                    return Connected && TerminalType != "";
                 }
                 else
                 {
+                    _RLoginState = RLS_DATA;
                     return true;
                 }
             }
@@ -160,91 +181,119 @@ namespace RandM.RMLib
             return false;
         }
 
+        private void ParseHeader(byte incoming)
+        {
+            switch (_HeadPhase)
+            {
+                case 0: // Waiting for the initial header
+                    if (0 == incoming) _HeadPhase++;
+                    break;
+                case 1:
+                    if (0 != incoming)
+                    {
+                        ClientUserName += Convert.ToChar(incoming);
+                    }
+                    else
+                    {
+                        if (ClientUserName != null)
+                            _HeadPhase++;
+                    }
+                    break;
+                case 2:
+                    if (0 != incoming)
+                    {
+                        ServerUserName += Convert.ToChar(incoming);
+                    }
+                    else
+                    {
+                        _HeadPhase++;
+                    }
+                    break;
+                case 3:
+                    if (0 != incoming)
+                    {
+                        TerminalType += Convert.ToChar(incoming);
+                    }
+                    else
+                    {
+                        if (TerminalType.Contains("/"))
+                        {
+                            TerminalType = TerminalType.Split('/')[0];
+                        }
+                        Write("\0");
+                        _HeadPhase = END_OF_HEAD_PHASE;
+                        _RLoginState = RLS_DATA;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
         //private bool ParseHeader()
         //{
-        //    // Get the 4 null terminated strings
-        //    string NullByte = ReadLn("\0", 5000);
-        //    if (ReadTimedOut) return false;
+        //    const byte END_OF_PHASE = 6;
+        //    const UInt16 timeOut = 5000;
+        //    byte headPhase = 0;
+        //    DateTime StartTime = DateTime.Now;
 
-        //    ClientUserName = ReadLn("\0", 1000);
-        //    if (ReadTimedOut) return false;
+        //    while ((headPhase < END_OF_PHASE) && (DateTime.Now.Subtract(StartTime).TotalMilliseconds < timeOut))
+        //    {
+        //        byte incoming = Convert.ToByte(ReadChar(100));
+        //        switch (headPhase)
+        //        {
+        //            case 0: // Waiting for the initial header
+        //                if (0 == incoming) headPhase++;
+        //                break;
+        //            case 1:
+        //                if (0 != incoming)
+        //                {
+        //                    ClientUserName += Convert.ToChar(incoming);
+        //                }
+        //                else
+        //                {
+        //                    if (ClientUserName != null)
+        //                        headPhase++;
+        //                }
+        //                break;
+        //            case 2:
+        //                if (0 != incoming)
+        //                {
+        //                    ServerUserName += Convert.ToChar(incoming);
+        //                }
+        //                else
+        //                {
+        //                    headPhase++;
+        //                }
+        //                break;
+        //            case 3:
+        //                if (0 != incoming)
+        //                {
+        //                    TerminalType += Convert.ToChar(incoming);
+        //                }
+        //                else
+        //                {
+        //                    if (TerminalType.Contains("/"))
+        //                    {
+        //                        TerminalType = TerminalType.Split('/')[0];
+        //                    }
+        //                    Write("\0");
+        //                    headPhase = END_OF_PHASE;
+        //                    _RLoginState = RLS_DATA;
+        //                }
+        //                break;
+        //            default:
+        //                break;
+        //        }
 
-        //    ServerUserName = ReadLn("\0", 1000);
-        //    if (ReadTimedOut) return false;
+        //    }
 
-        //    TerminalType = ReadLn("\0", 1000);
-        //    // TODOX SyncTerm doesn't always send final \0, so we'll ignore a read timeout for now
-        //    // if (ReadTimedOut) return false;
+        //    //ReadLn("\0", 100);
+        //    //ReadString();
+        //    if (headPhase == END_OF_PHASE) return true;
 
-        //    Write("\0");
-
-        //    return true;
+        //    return false;
         //}
-
-        private bool ParseHeader()
-        {
-            const byte END_OF_PHASE = 6;
-            const UInt16 timeOut = 5000;
-            byte headPhase = 0;
-            DateTime StartTime = DateTime.Now;
-
-            while ((headPhase < END_OF_PHASE) && (DateTime.Now.Subtract(StartTime).TotalMilliseconds < timeOut))
-            {
-                byte incoming = Convert.ToByte(ReadChar(100));
-                switch (headPhase)
-                {
-                    case 0: // Waiting for the initial header
-                        if (0 == incoming) headPhase++;
-                        break;
-                    case 1:
-                        if (0 != incoming)
-                        {
-                            ClientUserName += Convert.ToChar(incoming);
-                        }
-                        else
-                        {
-                            if (ClientUserName != null)
-                                headPhase++;
-                        }
-                        break;
-                    case 2:
-                        if (0 != incoming)
-                        {
-                            ServerUserName += Convert.ToChar(incoming);
-                        }
-                        else
-                        {
-                            headPhase++;
-                        }
-                        break;
-                    case 3:
-                        if (0 != incoming)
-                        {
-                            TerminalType += Convert.ToChar(incoming);
-                        }
-                        else
-                        {
-                            if (TerminalType.Contains("/"))
-                            {
-                                TerminalType = TerminalType.Split('/')[0];
-                            }
-                            Write("\0");
-                            headPhase = END_OF_PHASE;
-                        }
-                        break;
-                    default:
-                        break;
-                }
-
-            }
-
-            ReadLn("\0", 100);
-            ReadString();
-            _RLoginState = RLS_DATA;
-            if (headPhase == END_OF_PHASE) return true;
-
-            return false;
-        }
 
 
         public string ServerUserName { get; private set; }

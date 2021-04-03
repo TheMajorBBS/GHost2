@@ -1,4 +1,4 @@
-﻿/*
+/*
   GHost/2: Door Server
   Copyleft 2021 Major BBS (GPL3)
     original: Rick Parrish, R&M Software

@@ -24,6 +24,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Net.Sockets;
+using System.Text;
 
 namespace MajorBBS.GHost
 {
@@ -35,7 +37,6 @@ namespace MajorBBS.GHost
         {
             _ClientThread = clientThread;
         }
-
 
         private void WriteDropFile(string fileName, List<string> lines)
         {
@@ -333,16 +334,89 @@ namespace MajorBBS.GHost
                 platformParams += " " + scriptPath;
             }
 
-            using (RMProcess P = new RMProcess())
-            {
-                P.ProcessWaitEvent += _ClientThread.OnDoorWait;
+            /* Create process with environment settings and execute door command.
+             */
+            string platformCmd = Path.Combine(ProcessUtils.StartupPath, ReplaceTokens(platform.Shell));
 
-                ProcessStartInfo PSI = new ProcessStartInfo(ReplaceTokens(platform.Shell), platformParams)
+            ProcessStartInfo PSI = new ProcessStartInfo(platformCmd, platformParams)
+            {
+                WindowStyle = _ClientThread.NodeInfo.Door.WindowStyle,
+                WorkingDirectory = ProcessUtils.StartupPath,
+                UseShellExecute = false,
+                RedirectStandardError = true,
+                RedirectStandardInput = true,
+                RedirectStandardOutput = true,
+            };
+
+            Process proc = new Process();
+            TcpConnection conn = new TcpConnection();
+            conn.Open((int)_ClientThread.NodeInfo.Connection.Handle);
+            proc.StartInfo = PSI;
+            proc.Start();
+
+            Socket sock = conn.GetSocket();
+            byte[] tmp = new byte[1];
+
+            while (conn.Connected && !proc.HasExited)
+            {
+                try
                 {
-                    WindowStyle = _ClientThread.NodeInfo.Door.WindowStyle,
-                    WorkingDirectory = ProcessUtils.StartupPath,
-                };
-                P.StartAndWait(PSI);
+
+                    if (platform.RedirectLocal)
+                    {
+                        if (conn.CanRead(100))
+                        {
+                            proc.StandardInput.Write(conn.ReadString());
+                        }
+
+                            string inData = proc.StandardOutput.ReadToEnd();
+                            if (inData != "")
+                            {
+                                //sock.Send(Encoding.ASCII.GetBytes(inData));
+                                conn.Write(inData);
+                            }
+                    }
+
+                    string errorStr = proc.StandardError.ReadLine();
+                    if (errorStr != "" && errorStr != null)
+                    {
+                        if (!platform.SupressErrors)
+                        {
+                            string errFormat = String.Format(
+                                "DOOR ERROR [{0}]: {1}",
+                                _ClientThread.NodeInfo.Door.Name,
+                                errorStr
+                            );
+                            RMLog.Error(errFormat);
+                        }
+
+                        // search error log for DOSBox disconnect.
+                        if (errorStr == "Serial1: Disconnected.")
+                        {
+                            RMLog.Error("DOSBox serial disconnect discovered.");
+                            proc.WaitForExit(60000);
+                            proc.Kill();
+                        }
+                    }
+
+                    // probe socket to see if it's still connected.
+                    sock.Send(tmp, 0, 0);
+                }
+                catch (SocketException sockExcept)
+                {
+                    if (!sockExcept.NativeErrorCode.Equals(10035))
+                    {
+                        string errMsg = String.Format("User {0} has disconnected from '{1}'.", _ClientThread.Alias, _ClientThread.NodeInfo.Door.Name);
+                        RMLog.Error(errMsg);
+                        break;
+                    }
+                }
+            }
+
+            while (!proc.HasExited)
+            {
+                proc.WaitForExit(60000);
+                proc.Kill();
             }
 
         }

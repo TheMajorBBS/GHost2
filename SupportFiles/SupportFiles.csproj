@@ -117,9 +117,6 @@
     <None Include="config\newuser.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="cpulimit.sh">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="doors\new\AMB4031.zip" />
     <None Include="doors\new\AMB4031\AMB4031\Data\ITEM.DAT" />
     <None Include="doors\new\AMB4031\AMB4031\Data\MAGIC.DAT" />
@@ -294,16 +291,13 @@
     <None Include="doors\_sample.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="platforms\dosbox.conf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="ghost2">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Include="logs\GHost.log">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="platforms\dosbox-x.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="platforms\dosbox.conf">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="platforms\dosbox.ini">
@@ -314,12 +308,6 @@
     </None>
     <None Include="platforms\native.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="start.sh">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="stop.sh">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="timed-events\ping.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -356,12 +344,6 @@
     </None>
     <None Include="tools\win\NF124-RC\NF64.BAT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="update_from_git.ps1">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="update_from_git.sh">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="_Release.cmd">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

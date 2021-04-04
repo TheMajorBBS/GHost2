@@ -291,6 +291,12 @@
     <None Include="doors\_sample.ini">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="fixed-events\startup.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="fixed-events\shutdown.ps1">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="logs\GHost.log">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

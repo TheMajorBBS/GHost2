@@ -32,6 +32,7 @@ namespace MajorBBS.GHost
         [STAThread]
         static void Main(string[] args)
         {
+            new Classes.FixedEvent("startup");
             // Check for service mode or console mode
             if (Environment.UserInteractive || OSUtils.IsUnix)
             {
@@ -66,6 +67,7 @@ namespace MajorBBS.GHost
                 // Non-interactive mode (in other words, service mode)
                 ServiceApp.Start();
             }
+            new Classes.FixedEvent("shutdown");
         }
 
         private static void DisplayUsage()

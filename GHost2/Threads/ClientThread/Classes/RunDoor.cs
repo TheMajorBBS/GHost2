@@ -338,6 +338,7 @@ namespace MajorBBS.GHost
              */
             string platformCmd = Path.Combine(ProcessUtils.StartupPath, ReplaceTokens(platform.Shell));
 
+            Process proc = new Process();
             ProcessStartInfo PSI = new ProcessStartInfo(platformCmd, platformParams)
             {
                 WindowStyle = _ClientThread.NodeInfo.Door.WindowStyle,
@@ -348,7 +349,6 @@ namespace MajorBBS.GHost
                 RedirectStandardOutput = true,
             };
 
-            Process proc = new Process();
             TcpConnection conn = new TcpConnection();
             conn.Open((int)_ClientThread.NodeInfo.Connection.Handle);
             proc.StartInfo = PSI;

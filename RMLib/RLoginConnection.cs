@@ -76,11 +76,11 @@ namespace RandM.RMLib
                         ParseHeader(Convert.ToByte(data[i]));
                         break;
 
-                /*
-                 * I doubt anything bellow here actually happens while door is running due to the fact 
-                 * that the socket handle (file descriptor) is passed to the process and the stream 
-                 * writer in TCPConnection is not used.
-                 */
+                    /*
+                     * I doubt anything bellow here actually happens while door is running due to the fact 
+                     * that the socket handle (file descriptor) is passed to the process and the stream 
+                     * writer in TCPConnection is not used.
+                     */
                     case RLS_DATA:
                         if (RLC_COOKIE == data[i])
                         {
@@ -159,7 +159,8 @@ namespace RandM.RMLib
                 if (_ExpectHeader)
                 {
                     _RLoginState = RLS_HEADER;
-                    while (_RLoginState != RLS_DATA && Connected) {
+                    while (_RLoginState != RLS_DATA && Connected)
+                    {
                         CanRead(100);
                     }
 
@@ -168,7 +169,7 @@ namespace RandM.RMLib
                      */
                     CanRead(1000);
                     Flush();
-                    
+
                     return Connected && TerminalType != "";
                 }
                 else

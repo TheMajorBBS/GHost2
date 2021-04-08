@@ -19,7 +19,6 @@
   along with GHost/2.  If not, see <http://www.gnu.org/licenses/>.
 */
 using RandM.RMLib;
-using System;
 using System.Diagnostics;
 using System.Linq;
 
@@ -72,7 +71,7 @@ namespace MajorBBS.GHost
             }
         }
 
-       public void SaveEvent(string eventName)
+        public void SaveEvent(string eventName)
         {
             Save(eventName);
         }

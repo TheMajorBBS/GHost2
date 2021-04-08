@@ -2,8 +2,8 @@
  * RLoginTester
  * Simpler console program for testing rlogin connections.
  */
-using System;
 using RandM.RMLib;
+using System;
 
 namespace MajorBBS.GHost
 {
@@ -116,13 +116,13 @@ namespace MajorBBS.GHost
                     return;
                 }
             }
-            
+
             Console.WriteLine("Host:{0}  Port:{1}", remoteHostName, remotePort);
             Console.WriteLine("Local User:{0}  Remote User:{1}", localUser, remoteUser);
             Console.WriteLine("Terminal:{0}", terminal);
-            
+
             RLoginConnection rlConn = new RLoginConnection(false);
-            
+
             if (rlConn.Connect(remoteHostName, remotePort))
             {
                 string header = String.Format("\0{0}\0{1}\0{2}\0", localUser, remoteUser, terminal);

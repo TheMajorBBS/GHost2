@@ -67,9 +67,7 @@ namespace RandM.RMLib
         {
             SectionName = "CONFIGURATION";
 
-            IniPassword = new RMSecureString();
             Loaded = false;
-            RMSecureStringPassword = new RMSecureString();
 
             switch (saveLocation)
             {
@@ -88,15 +86,6 @@ namespace RandM.RMLib
             }
         }
 
-        protected void ChangePassword(RMSecureString newPassword)
-        {
-            if (IniPassword.Length > 0)
-            {
-                if (!Loaded) Load();
-                IniPassword = newPassword;
-                Save();
-            }
-        }
 
         /// <summary>
         /// Basic delete method that deletes the currently stored section name
@@ -119,7 +108,7 @@ namespace RandM.RMLib
             SectionName = sectionName;
 
             // Load the application ini
-            using (IniFile Ini = new IniFile(FileName, IniPassword))
+            using (IniFile Ini = new IniFile(FileName))
             {
 
                 // Check if the desired section exists
@@ -136,11 +125,6 @@ namespace RandM.RMLib
         /// The name of the INI file to be read from / saved to
         /// </summary>
         public string FileName { get; protected set; }
-
-        /// <summary>
-        /// The password to encrypt the INI file with (using AES)
-        /// </summary>
-        public RMSecureString IniPassword { private get; set; }
 
         /// <summary>
         /// Basic load method that reads from the currently stored section name
@@ -165,7 +149,7 @@ namespace RandM.RMLib
             SectionName = sectionName;
 
             // Load the application ini
-            using (IniFile Ini = new IniFile(FileName, IniPassword))
+            using (IniFile Ini = new IniFile(FileName))
             {
 
                 // Check if the desired section exists
@@ -214,33 +198,6 @@ namespace RandM.RMLib
                             case "UInt32[]": Property.SetValue(this, Ini.ReadUInt32(sectionName, Property.Name, (IList)Property.GetValue(this, null)), null); break;
                             case "UInt64": Property.SetValue(this, Ini.ReadUInt64(sectionName, Property.Name, (UInt64)Property.GetValue(this, null)), null); break;
                             case "UInt64[]": Property.SetValue(this, Ini.ReadUInt64(sectionName, Property.Name, (IList)Property.GetValue(this, null)), null); break;
-                            case "RMSecureString":
-                                string Enc = Ini.ReadString(sectionName, Property.Name, "");
-                                if (Enc.Length > 0)
-                                {
-                                    RMSecureString RMSS = new RMSecureString();
-                                    try
-                                    {
-                                        if (RMSecureStringPassword.Length == 0)
-                                        {
-                                            // No password means protected string
-                                            RMSS.LoadFromProtectedString(Enc, RMSecureStringPassword);
-                                        }
-                                        else
-                                        {
-                                            // Password means encrypted string
-                                            RMSS.LoadFromEncryptedString(Enc, RMSecureStringPassword);
-                                        }
-                                    }
-                                    catch (Exception)
-                                    {
-                                        // Loading failed -- could be that the protection happened under a different user account, or the password is incorrect
-                                        // TODO Should really save the exception and throw it later I think
-                                        RMSS = new RMSecureString();
-                                    }
-                                    Property.SetValue(this, RMSS, null);
-                                }
-                                break;
                             case "StringDictionary":
                                 StringDictionary SD = new StringDictionary();
 
@@ -326,24 +283,6 @@ namespace RandM.RMLib
             FileName = NewFileName;
         }
 
-        protected void RemovePassword()
-        {
-            if (IniPassword.Length > 0)
-            {
-                if (!Loaded) Load();
-                IniPassword.Clear();
-                Save();
-            }
-        }
-
-        /// <summary>
-        /// The password to use when storing an RMSecureString in the INI file
-        /// </summary>
-        /// <remarks>
-        /// If a password is supplied, any RMSecureString will be stored in an encrypted fashion (AES), while if the password is left blank, any RMSecureString will be stored in a protected fashion (DPAPI)
-        /// </remarks>
-        public RMSecureString RMSecureStringPassword { get; set; }
-
         /// <summary>
         /// Basic save method that saves to the currently stored section name
         /// </summary>
@@ -362,7 +301,7 @@ namespace RandM.RMLib
         protected void Save(string sectionName)
         {
             // Load the Ini
-            IniFile Ini = new IniFile(FileName, IniPassword);
+            IniFile Ini = new IniFile(FileName);
 
             // Loop through each field in the inherited class and write the value to the Ini
             PropertyInfo[] Properties = this.GetType().GetProperties(BindingFlags.Instance | BindingFlags.Public | BindingFlags.DeclaredOnly);
@@ -407,19 +346,6 @@ namespace RandM.RMLib
                         case "UInt32[]":
                         case "UInt64[]":
                             Ini.WriteString(sectionName, Property.Name, (IList)Property.GetValue(this, null));
-                            break;
-                        case "RMSecureString":
-                            // RMSecureString should be saved via Ini.WriteString() either protected or encrypted
-                            if (RMSecureStringPassword.Length == 0)
-                            {
-                                // No password means protected
-                                Ini.WriteString(sectionName, Property.Name, ((RMSecureString)Property.GetValue(this, null)).GetProtectedString(RMSecureStringPassword));
-                            }
-                            else
-                            {
-                                // Password means encrypted
-                                Ini.WriteString(sectionName, Property.Name, ((RMSecureString)Property.GetValue(this, null)).GetEncryptedString(RMSecureStringPassword));
-                            }
                             break;
                         case "StringDictionary":
                             StringDictionary SD = (StringDictionary)Property.GetValue(this, null);

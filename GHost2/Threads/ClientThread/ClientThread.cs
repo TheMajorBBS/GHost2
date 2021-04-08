@@ -69,7 +69,7 @@ namespace MajorBBS.GHost
                     {
                         Directory.Delete(currentNode, true);
                     }
-                    catch(Exception)
+                    catch (Exception)
                     {
                         RMLog.Warning("Unable to remove node directory (non-fatal)");
                     }
@@ -635,7 +635,6 @@ namespace MajorBBS.GHost
 
             // Sanity check on the port
             int Port = 23;
-            WebUtils.ParseHostPort(hostname, ref hostname, ref Port);
             if ((Port < 1) || (Port > 65535))
             {
                 Port = (_RLogin) ? 513 : 23;

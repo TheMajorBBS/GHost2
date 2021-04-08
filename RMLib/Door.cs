@@ -477,7 +477,7 @@ namespace RandM.RMLib
                     case 1: return false; // Serial
                     //case 2: _Connection = new TelnetConnection(); break;  [deprecated]
                     case 3: _Connection = new RLoginConnection(); break;
-                    //case 4: _Connection = new WebSocketConnection(false); break;  [deprecated]
+                        //case 4: _Connection = new WebSocketConnection(false); break;  [deprecated]
                 }
                 _Connection.Open(DropInfo.SocketHandle);
                 _Connection.ShutdownOnClose = false;

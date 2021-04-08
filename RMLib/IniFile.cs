@@ -46,23 +46,15 @@ namespace RandM.RMLib
         private List<string> _SectionNames = new List<string>();
 
         /// <summary>
-        /// Default constructor to load the given INI into memory
-        /// </summary>
-        /// <param name="fileName">The INI to load</param>
-        public IniFile(string fileName) : this(fileName, new RMSecureString()) { }
-
-        /// <summary>
         /// Custom constructor to load the given INI into memory, and indicate whether the changes should be buffered or immediately written to disk
         /// </summary>
         /// <param name="fileName">The INI to load</param>
         /// <param name="password">The password used to encrypt/decrypt the contents of the INI file</param>
-        public IniFile(string fileName, RMSecureString password)
+        public IniFile(string fileName)
         {
             AutoSave = false;
-            Password = new RMSecureString();
 
             _FileName = fileName;
-            Password = password;
 
             List<string> CurrentComment = new List<string>();
             string CurrentSection = "";
@@ -70,20 +62,6 @@ namespace RandM.RMLib
             {
                 // Read in the INI file
                 string FileText = FileUtils.FileReadAllText(fileName, RMEncoding.Ansi);
-
-                // Decrypt the INI file (if necessary)
-                if (password.Length > 0)
-                {
-                    try
-                    {
-                        FileText = AES.Decrypt(FileText, password.GetPlainText(), INI_FILE_SALT);
-                        Password = password;
-                    }
-                    catch (Exception)
-                    {
-                        return;
-                    }
-                }
 
                 // Split the INI file into separate lines
                 string[] Lines = FileText.Replace("\r\n", "\n").Replace("\r", "\n").Split('\n');
@@ -139,18 +117,6 @@ namespace RandM.RMLib
                                 }
                             }
                         }
-                    }
-                }
-
-                // Ensure the supplied password is valid
-                if (Password.Length > 0)
-                {
-                    if ((_HeaderComment.Count == 0) || (_HeaderComment[0] != INI_FILE_ENCRYPTED_HEADER))
-                    {
-                        // Password did not properly decrypt the ini file
-                        _Sections.Clear();
-                        _SectionNames.Clear();
-                        return;
                     }
                 }
             }
@@ -266,8 +232,6 @@ namespace RandM.RMLib
         {
             return _Sections.ContainsKey(sectionName) && _Sections[sectionName].ContainsKey(keyName);
         }
-
-        public RMSecureString Password { get; set; }
 
         /// <summary>
         /// Returns a string array of all the keys in the given section
@@ -630,14 +594,6 @@ namespace RandM.RMLib
         {
             _Modified = false;
 
-            if (Password.Length > 0)
-            {
-                if ((_HeaderComment.Count == 0) || (_HeaderComment[0] != INI_FILE_ENCRYPTED_HEADER))
-                {
-                    _HeaderComment.Insert(0, INI_FILE_ENCRYPTED_HEADER);
-                }
-            }
-
             List<string> Lines = new List<string>();
             if (_HeaderComment.Count > 0)
             {
@@ -654,7 +610,6 @@ namespace RandM.RMLib
             }
 
             string FileText = string.Join("\r\n", Lines.ToArray());
-            if (Password.Length > 0) FileText = AES.Encrypt(FileText, Password.GetPlainText(), INI_FILE_SALT);
 
             Directory.CreateDirectory(Path.GetDirectoryName(AFileName));
             FileUtils.FileWriteAllText(AFileName, FileText);

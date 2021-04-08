@@ -18,6 +18,7 @@
   You should have received a copy of the GNU General Public License
   along with GHost/2.  If not, see <http://www.gnu.org/licenses/>.
 */
+using Microsoft.Win32.SafeHandles;
 using RandM.RMLib;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,8 @@ namespace MajorBBS.GHost
         private static object _RootLock = new object();
         private static object _TempIgnoredIPsLock = new object();
 
-        private static WindowsImpersonationContext _WIC = null;
+        //private static WindowsImpersonationContext _WIC = null;
+        private static SafeAccessTokenHandle accessTokenHandle = null;
 
         public static void AddTempIgnoredIP(string ip)
         {
@@ -102,14 +104,14 @@ namespace MajorBBS.GHost
                     }
                 }
             }
-            else if (OSUtils.IsUnix)
-            {
-                FileUtils.FileDelete("dosbox.conf");
-                FileUtils.FileDelete("dosxtrn.exe");
-                FileUtils.FileDelete("dosxtrn.pif");
-                FileUtils.FileDelete("install.cmd");
-                FileUtils.FileDelete("sbbsexec.dll");
-            }
+            //else if (OSUtils.IsUnix)
+            //{
+            //    FileUtils.FileDelete("dosbox.conf");
+            //    FileUtils.FileDelete("dosxtrn.exe");
+            //    FileUtils.FileDelete("dosxtrn.pif");
+            //    FileUtils.FileDelete("install.cmd");
+            //    FileUtils.FileDelete("sbbsexec.dll");
+            //}
         }
 
         public static string Copyright
@@ -137,25 +139,28 @@ namespace MajorBBS.GHost
             if (!StartedAsRoot)
                 return;
 
-            lock (_RootLock)
-            {
-                // If we're on a Unix machine, and running as root, drop privilege
-                if ((OSUtils.IsUnix) && (_WIC == null) && (WindowsIdentity.GetCurrent().Token == IntPtr.Zero))
-                {
-                    using (WindowsIdentity Before = WindowsIdentity.GetCurrent())
-                    {
-                        using (WindowsIdentity DropTo = new WindowsIdentity(dropToUser))
-                        {
-                            _WIC = DropTo.Impersonate();
-                            using (WindowsIdentity After = WindowsIdentity.GetCurrent())
-                            {
-                                if (After.Name != dropToUser)
-                                    throw new ArgumentOutOfRangeException("dropToUser", "requested user account '" + dropToUser + "' does not exist");
-                            }
-                        }
-                    }
-                }
-            }
+            //lock (_RootLock)
+            //{
+            //    // If we're on a Unix machine, and running as root, drop privilege
+            //    if ((OSUtils.IsUnix) && (accessTokenHandle == null) && (WindowsIdentity.GetCurrent().Token == IntPtr.Zero))
+            //    {
+            //        using (WindowsIdentity Before = WindowsIdentity.GetCurrent())
+            //        {
+            //            using (WindowsIdentity DropTo = new WindowsIdentity(dropToUser))
+            //            {
+            //                accessTokenHandle = DropTo.AccessToken;
+            //                WindowsIdentity.RunImpersonated(accessTokenHandle, () =>
+            //                {
+            //                    using (WindowsIdentity After = WindowsIdentity.GetCurrent())
+            //                    {
+            //                        if (After.Name != dropToUser)
+            //                            throw new ArgumentOutOfRangeException(nameof(dropToUser), "requested user account '" + dropToUser + "' does not exist");
+            //                    }
+            //                });
+            //            }
+            //        }
+            //    }
+            //}
         }
 
         public static bool FileContainsIP(string fileName, string ip)
@@ -360,11 +365,11 @@ namespace MajorBBS.GHost
             lock (_RootLock)
             {
                 // If we're on a Unix machine, raise back to root privilege
-                if ((OSUtils.IsUnix) && (_WIC != null) && (WindowsIdentity.GetCurrent().Token != IntPtr.Zero))
-                {
-                    _WIC.Undo();
-                    _WIC = null;
-                }
+                //if ((OSUtils.IsUnix) && (_WIC != null) && (WindowsIdentity.GetCurrent().Token != IntPtr.Zero))
+                //{
+                //    _WIC.Undo();
+                //    _WIC = null;
+                //}
             }
         }
     }

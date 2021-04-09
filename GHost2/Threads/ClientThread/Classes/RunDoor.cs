@@ -348,8 +348,7 @@ namespace MajorBBS.GHost
                 RedirectStandardOutput = true,
             };
 
-            TcpConnection conn = new TcpConnection();
-            conn.Open((int)_ClientThread.NodeInfo.Connection.Handle);
+            TcpConnection conn = _ClientThread.NodeInfo.Connection;
             proc.StartInfo = PSI;
             proc.Start();
 

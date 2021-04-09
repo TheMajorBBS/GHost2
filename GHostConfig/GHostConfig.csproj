@@ -23,7 +23,7 @@
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Advanced Options.ico</ApplicationIcon>
+    <ApplicationIcon>setup.ico</ApplicationIcon>
     <Nullable>disable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -33,9 +33,6 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <OutputPath>..\bin\Release\</OutputPath>
   </PropertyGroup>
-  <ItemGroup>
-    <Content Include="Advanced Options.ico" />
-  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GHost2\GHost2.csproj" />
     <ProjectReference Include="..\RMLib\RMLib.csproj" />
@@ -54,5 +51,18 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="ServerSettingsComp.resx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Properties\Settings.Designer.cs">
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
   </ItemGroup>
 </Project>

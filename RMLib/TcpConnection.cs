@@ -56,6 +56,7 @@ namespace RandM.RMLib
         private bool _Disposed = false;
         private Queue<byte> _InputBuffer = new Queue<byte>();
         private byte _LastByte = 0;
+        private IntPtr _DuplicateHandle = IntPtr.Zero;
 
         // Public properties
         public string LineEnding { get; set; }
@@ -431,19 +432,11 @@ namespace RandM.RMLib
         {
             get
             {
-                return _Socket.Handle;
-                //if (Environment.OSVersion.Platform == PlatformID.Win32Windows)
-                //{
-                //    if (_DuplicateHandle == IntPtr.Zero)
-                //    {
-                //        NativeMethods.DuplicateHandle(Process.GetCurrentProcess().Handle, _Socket.Handle, Process.GetCurrentProcess().Handle, out _DuplicateHandle, 0, true, (uint)NativeMethods.DuplicateOptions.DUPLICATE_SAME_ACCESS);
-                //    }
-                //    return _DuplicateHandle;
-                //}
-                //else
-                //{
-                //    return _Socket.Handle;
-                //}
+                // under .Net v5 (any Core) file descriptors are synthetic and not from OS.
+                // you must ALWAYS duplicate socket to get the OS's handle.
+                if (_DuplicateHandle == IntPtr.Zero)
+                    NativeMethods.DuplicateHandle(Process.GetCurrentProcess().Handle, _Socket.Handle, Process.GetCurrentProcess().Handle, out _DuplicateHandle, 0, true, (uint)NativeMethods.DuplicateOptions.DUPLICATE_SAME_ACCESS);
+                return _DuplicateHandle;
             }
         }
 

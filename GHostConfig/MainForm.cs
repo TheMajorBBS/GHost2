@@ -147,7 +147,7 @@ namespace MajorBBS.GHost
         {
             string doorName = mapDoors[lsboxDoors.Text];
             string args = String.Format("-p {0} -t xtrn={1}", Config.Instance.RLoginServerPort.ToString(), doorName);
-            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "RloginClient.exe"), args);
+            Process.Start(StringUtils.PathCombine(ProcessUtils.StartupPath, "rlogin.exe"), args);
         }
 
         private void listBox1_SelectedIndexChanged(object sender, EventArgs e)

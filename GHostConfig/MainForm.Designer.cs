@@ -782,7 +782,7 @@ namespace MajorBBS.GHost
             // 
             // btnDoorsTest
             // 
-            this.btnDoorsTest.Location = new System.Drawing.Point(678, 362);
+            this.btnDoorsTest.Location = new System.Drawing.Point(678, 363);
             this.btnDoorsTest.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDoorsTest.Name = "btnDoorsTest";
             this.btnDoorsTest.Size = new System.Drawing.Size(136, 67);

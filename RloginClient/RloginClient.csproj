@@ -5,6 +5,7 @@
     <TargetFramework>net5.0</TargetFramework>
     <RootNamespace>MajorBBS.GHost</RootNamespace>
     <StartupObject>MajorBBS.GHost.RloginClientSocket</StartupObject>
+    <AssemblyName>rlogin</AssemblyName>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

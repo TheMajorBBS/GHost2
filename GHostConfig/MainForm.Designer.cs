@@ -782,6 +782,7 @@ namespace MajorBBS.GHost
             // 
             // btnDoorsTest
             // 
+            this.btnDoorsTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnDoorsTest.Location = new System.Drawing.Point(678, 363);
             this.btnDoorsTest.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDoorsTest.Name = "btnDoorsTest";

@@ -10,6 +10,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>GHost.ico</ApplicationIcon>
+    <StartupObject>MajorBBS.GHost.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>

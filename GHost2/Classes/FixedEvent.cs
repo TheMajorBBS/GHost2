@@ -1,11 +1,7 @@
 ﻿using RandM.RMLib;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MajorBBS.GHost.Classes
 {
@@ -38,7 +34,7 @@ namespace MajorBBS.GHost.Classes
 
             proc.StartInfo = PSI;
             proc.Start();
-            
+
             while (!proc.HasExited)
             {
                 string errorStr = proc.StandardError.ReadLine();

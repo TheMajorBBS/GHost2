@@ -65,18 +65,18 @@ namespace MajorBBS.GHost
             this.mnuFileExit = new System.Windows.Forms.ToolStripMenuItem();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.lvNodes = new System.Windows.Forms.ListView();
-            this.colNode = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colConnection = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colRemoteIP = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colUser = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.colStatus = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.colNode = new System.Windows.Forms.ColumnHeader();
+            this.colConnection = new System.Windows.Forms.ColumnHeader();
+            this.colRemoteIP = new System.Windows.Forms.ColumnHeader();
+            this.colUser = new System.Windows.Forms.ColumnHeader();
+            this.colStatus = new System.Windows.Forms.ColumnHeader();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.lvHistory = new System.Windows.Forms.ListView();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader3 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader4 = new System.Windows.Forms.ColumnHeader();
+            this.columnHeader5 = new System.Windows.Forms.ColumnHeader();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.lblRLoginCount = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
@@ -111,9 +111,9 @@ namespace MajorBBS.GHost
             this.tsbDisconnect,
             this.toolStripSeparator2,
             this.tsbSetup});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 42);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 38);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(984, 44);
+            this.toolStrip1.Size = new System.Drawing.Size(984, 40);
             this.toolStrip1.TabIndex = 4;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -170,21 +170,19 @@ namespace MajorBBS.GHost
             // tsbSetup
             // 
             this.tsbSetup.Image = ((System.Drawing.Image)(resources.GetObject("tsbSetup.Image")));
-            this.tsbSetup.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
             this.tsbSetup.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.tsbSetup.Name = "tsbSetup";
-            this.tsbSetup.Size = new System.Drawing.Size(94, 34);
+            this.tsbSetup.Size = new System.Drawing.Size(98, 34);
             this.tsbSetup.Text = "Setup";
             // 
             // menuStrip1
             // 
-            this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(28, 28);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mnuFile});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(984, 42);
+            this.menuStrip1.Size = new System.Drawing.Size(984, 38);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -206,7 +204,7 @@ namespace MajorBBS.GHost
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 86);
+            this.splitContainer1.Location = new System.Drawing.Point(0, 78);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
             // 
@@ -217,7 +215,7 @@ namespace MajorBBS.GHost
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(984, 575);
+            this.splitContainer1.Size = new System.Drawing.Size(984, 583);
             this.splitContainer1.SplitterDistance = 120;
             this.splitContainer1.TabIndex = 5;
             // 
@@ -281,7 +279,7 @@ namespace MajorBBS.GHost
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.rtbLog);
-            this.splitContainer2.Size = new System.Drawing.Size(984, 451);
+            this.splitContainer2.Size = new System.Drawing.Size(984, 459);
             this.splitContainer2.SplitterDistance = 549;
             this.splitContainer2.TabIndex = 0;
             // 
@@ -301,7 +299,7 @@ namespace MajorBBS.GHost
             this.lvHistory.Location = new System.Drawing.Point(0, 19);
             this.lvHistory.MultiSelect = false;
             this.lvHistory.Name = "lvHistory";
-            this.lvHistory.Size = new System.Drawing.Size(549, 432);
+            this.lvHistory.Size = new System.Drawing.Size(549, 440);
             this.lvHistory.TabIndex = 3;
             this.lvHistory.UseCompatibleStateImageBehavior = false;
             this.lvHistory.View = System.Windows.Forms.View.Details;
@@ -377,7 +375,7 @@ namespace MajorBBS.GHost
             this.rtbLog.Location = new System.Drawing.Point(0, 0);
             this.rtbLog.Name = "rtbLog";
             this.rtbLog.ReadOnly = true;
-            this.rtbLog.Size = new System.Drawing.Size(431, 451);
+            this.rtbLog.Size = new System.Drawing.Size(431, 459);
             this.rtbLog.TabIndex = 1;
             this.rtbLog.Text = "";
             this.rtbLog.DoubleClick += new System.EventHandler(this.rtbLog_DoubleClick);
@@ -390,7 +388,7 @@ namespace MajorBBS.GHost
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Courier New", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;

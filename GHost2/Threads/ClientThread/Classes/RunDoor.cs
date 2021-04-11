@@ -25,7 +25,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net.Sockets;
-using System.Text;
 
 namespace MajorBBS.GHost
 {
@@ -287,7 +286,7 @@ namespace MajorBBS.GHost
             return platformCommand != "" ?
                     platformCommand
                         .Replace("%args%", TranslateCLS(_ClientThread.NodeInfo.Door.Parameters))
-                        .Replace("%cmd%", TranslateCLS(_ClientThread.NodeInfo.Door.Command) + " " + TranslateCLS(_ClientThread.NodeInfo.Door.Parameters) )
+                        .Replace("%cmd%", TranslateCLS(_ClientThread.NodeInfo.Door.Command) + " " + TranslateCLS(_ClientThread.NodeInfo.Door.Parameters))
                         .Replace("%exe%", TranslateCLS(_ClientThread.NodeInfo.Door.Command))
                         .Replace("%node%", _ClientThread.NodeInfo.Node.ToString())
                         .Replace("%handle%", _ClientThread.NodeInfo.Connection.Handle.ToString())
@@ -349,8 +348,7 @@ namespace MajorBBS.GHost
                 RedirectStandardOutput = true,
             };
 
-            TcpConnection conn = new TcpConnection();
-            conn.Open((int)_ClientThread.NodeInfo.Connection.Handle);
+            TcpConnection conn = _ClientThread.NodeInfo.Connection;
             proc.StartInfo = PSI;
             proc.Start();
 
@@ -369,12 +367,12 @@ namespace MajorBBS.GHost
                             proc.StandardInput.Write(conn.ReadString());
                         }
 
-                            string inData = proc.StandardOutput.ReadToEnd();
-                            if (inData != "")
-                            {
-                                //sock.Send(Encoding.ASCII.GetBytes(inData));
-                                conn.Write(inData);
-                            }
+                        string inData = proc.StandardOutput.ReadToEnd();
+                        if (inData != "")
+                        {
+                            //sock.Send(Encoding.ASCII.GetBytes(inData));
+                            conn.Write(inData);
+                        }
                     }
 
                     string errorStr = proc.StandardError.ReadLine();

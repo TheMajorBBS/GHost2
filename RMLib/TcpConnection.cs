@@ -53,10 +53,10 @@ namespace RandM.RMLib
         protected Stream _Stream = null;
 
         // Private variables
-        private IntPtr _DuplicateHandle = IntPtr.Zero;
         private bool _Disposed = false;
         private Queue<byte> _InputBuffer = new Queue<byte>();
         private byte _LastByte = 0;
+        private IntPtr _DuplicateHandle = IntPtr.Zero;
 
         // Public properties
         public string LineEnding { get; set; }
@@ -258,38 +258,8 @@ namespace RandM.RMLib
             {
                 // Get the ip addresses for the give hostname, and then convert from ipv4 to ipv6 if necessary
                 var HostAddresses = new List<IPAddress>();
-                //if (!Socket.OSSupportsIPv6)
-                if (true)
-                {
-                    HostAddresses.AddRange(Dns.GetHostAddresses(hostName));
-                    _Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                }
-                else
-                {
-                    foreach (var IPA in Dns.GetHostAddresses(hostName))
-                    {
-                        if (IPA.AddressFamily == AddressFamily.InterNetwork)
-                        {
-                            HostAddresses.Add(IPAddress.Parse("::ffff:" + IPA.ToString()));
-                        }
-                        else
-                        {
-                            HostAddresses.Add(IPA);
-                        }
-                    }
-
-                    _Socket = new Socket(AddressFamily.InterNetworkV6, SocketType.Stream, ProtocolType.Tcp);
-                    // Only do the Mono check here because the XP check is done above
-                    if (!ProcessUtils.IsRunningOnMono) // From: https://github.com/statianzo/Fleck/blob/master/src/Fleck/WebSocketServer.cs
-                    {
-#if __MonoCS__
-#else
-                        // Windows default to IPv6Only=true, so we call this to allow connections to both IPv4 and IPv6
-                        // Mono will throw an exception, but that's OK because it defaults to allowing both IPv4 and IPv6
-                        _Socket.SetSocketOption(SocketOptionLevel.IPv6, (SocketOptionName)27, false); // 27 = SocketOptionName.IPv6Only
-#endif
-                    }
-                }
+                HostAddresses.AddRange(Dns.GetHostAddresses(hostName));
+                _Socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
 
                 _Socket.Blocking = true;
                 _Socket.Connect(HostAddresses.ToArray(), port);
@@ -462,18 +432,11 @@ namespace RandM.RMLib
         {
             get
             {
-                if (Environment.OSVersion.Platform == PlatformID.Win32Windows)
-                {
-                    if (_DuplicateHandle == IntPtr.Zero)
-                    {
-                        NativeMethods.DuplicateHandle(Process.GetCurrentProcess().Handle, _Socket.Handle, Process.GetCurrentProcess().Handle, out _DuplicateHandle, 0, true, (uint)NativeMethods.DuplicateOptions.DUPLICATE_SAME_ACCESS);
-                    }
-                    return _DuplicateHandle;
-                }
-                else
-                {
-                    return _Socket.Handle;
-                }
+                // under .Net v5 (any Core) file descriptors are synthetic and not from OS.
+                // you must ALWAYS duplicate socket to get the OS's handle.
+                if (_DuplicateHandle == IntPtr.Zero)
+                    NativeMethods.DuplicateHandle(Process.GetCurrentProcess().Handle, _Socket.Handle, Process.GetCurrentProcess().Handle, out _DuplicateHandle, 0, true, (uint)NativeMethods.DuplicateOptions.DUPLICATE_SAME_ACCESS);
+                return _DuplicateHandle;
             }
         }
 
@@ -567,9 +530,6 @@ namespace RandM.RMLib
                     SocketError Result = NativeMethods.WSAStartup((short)0x0202, out WSA);
                     if (Result != SocketError.Success) throw new SocketException(NativeMethods.WSAGetLastError());
 
-                    SocketPermission SP = new SocketPermission(System.Security.Permissions.PermissionState.Unrestricted);
-                    SP.Demand();
-
                     SocketInformation SI = new SocketInformation()
                     {
                         Options = SocketInformationOptions.Connected,
@@ -647,10 +607,11 @@ namespace RandM.RMLib
                     Options = SocketInformationOptions.Connected,
                 };
 
-                _Socket = new Socket(SI)
+                Socket socket = new Socket(SI)
                 {
                     Blocking = true,
                 };
+                _Socket = socket;
                 if (_Socket.Connected) _Stream = new NetworkStream(_Socket);
                 return _Socket.Connected;
             }
@@ -721,7 +682,7 @@ namespace RandM.RMLib
             if (BindToAll.Contains(ipAddress))
             {
                 // We want to bind to all addresses, so return IPAddress.Any or IPv6Any based on the OS we're running on
-                return Socket.OSSupportsIPv6 ? IPAddress.IPv6Any : IPAddress.Any;
+                return IPAddress.Any;
             }
             else
             {

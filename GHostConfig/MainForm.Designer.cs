@@ -332,11 +332,12 @@ namespace MajorBBS.GHost
             this.tabControl1.Controls.Add(this.tabPlatforms);
             this.tabControl1.Controls.Add(this.tabDoors);
             this.tabControl1.Controls.Add(this.tabEvents);
-            this.tabControl1.Location = new System.Drawing.Point(16, 16);
+            this.tabControl1.Location = new System.Drawing.Point(32, 37);
+            this.tabControl1.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(459, 390);
+            this.tabControl1.Size = new System.Drawing.Size(918, 900);
             this.tabControl1.TabIndex = 8;
             // 
             // tabAbout
@@ -344,10 +345,11 @@ namespace MajorBBS.GHost
             this.tabAbout.Controls.Add(this.pictureBox1);
             this.tabAbout.Controls.Add(this.textBox1);
             this.tabAbout.Controls.Add(this.label7);
-            this.tabAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabAbout.Location = new System.Drawing.Point(4, 22);
+            this.tabAbout.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tabAbout.Location = new System.Drawing.Point(4, 39);
+            this.tabAbout.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.tabAbout.Name = "tabAbout";
-            this.tabAbout.Size = new System.Drawing.Size(451, 364);
+            this.tabAbout.Size = new System.Drawing.Size(910, 857);
             this.tabAbout.TabIndex = 3;
             this.tabAbout.Text = "About";
             this.tabAbout.UseVisualStyleBackColor = true;
@@ -356,10 +358,10 @@ namespace MajorBBS.GHost
             // 
             this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pictureBox1.Image = global::MajorBBS.GHost.Properties.Resources.ghost_png;
-            this.pictureBox1.Location = new System.Drawing.Point(83, 39);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.pictureBox1.Location = new System.Drawing.Point(166, 90);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(70, 69);
+            this.pictureBox1.Size = new System.Drawing.Size(140, 159);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pictureBox1.TabIndex = 2;
             this.pictureBox1.TabStop = false;
@@ -369,12 +371,12 @@ namespace MajorBBS.GHost
             this.textBox1.BackColor = System.Drawing.SystemColors.Window;
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.textBox1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.textBox1.Location = new System.Drawing.Point(62, 118);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.textBox1.Location = new System.Drawing.Point(124, 272);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(292, 106);
+            this.textBox1.Size = new System.Drawing.Size(584, 245);
             this.textBox1.TabIndex = 1;
             this.textBox1.Text = "CopyLeft 2021 Major BBS (GPL3)\r\nOriginated from the GameSrv code (GPL3) by Rick P" +
     "arrish\r\n\r\nCredits: \r\nRMLib and RMUILib by Rick Parrish\r\nNetFoss: by PC Micro Sys" +
@@ -383,10 +385,11 @@ namespace MajorBBS.GHost
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(158, 69);
+            this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label7.Location = new System.Drawing.Point(316, 159);
+            this.label7.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(92, 26);
+            this.label7.Size = new System.Drawing.Size(159, 44);
             this.label7.TabIndex = 0;
             this.label7.Text = "GHost/2";
             // 
@@ -420,11 +423,12 @@ namespace MajorBBS.GHost
             this.tabServerSettings.Controls.Add(this.label2);
             this.tabServerSettings.Controls.Add(this.txtBBSName);
             this.tabServerSettings.Controls.Add(this.label1);
-            this.tabServerSettings.Font = new System.Drawing.Font("Arial", 8.249F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabServerSettings.Location = new System.Drawing.Point(4, 22);
+            this.tabServerSettings.Font = new System.Drawing.Font("Arial", 8.249F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.tabServerSettings.Location = new System.Drawing.Point(4, 39);
+            this.tabServerSettings.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.tabServerSettings.Name = "tabServerSettings";
-            this.tabServerSettings.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabServerSettings.Size = new System.Drawing.Size(451, 364);
+            this.tabServerSettings.Padding = new System.Windows.Forms.Padding(6, 7, 6, 7);
+            this.tabServerSettings.Size = new System.Drawing.Size(910, 857);
             this.tabServerSettings.TabIndex = 0;
             this.tabServerSettings.Text = "Server Settings";
             this.tabServerSettings.UseVisualStyleBackColor = true;
@@ -432,26 +436,29 @@ namespace MajorBBS.GHost
             // lblTimePerCallMinutes
             // 
             this.lblTimePerCallMinutes.AutoSize = true;
-            this.lblTimePerCallMinutes.Location = new System.Drawing.Point(79, 244);
+            this.lblTimePerCallMinutes.Location = new System.Drawing.Point(158, 563);
+            this.lblTimePerCallMinutes.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblTimePerCallMinutes.Name = "lblTimePerCallMinutes";
-            this.lblTimePerCallMinutes.Size = new System.Drawing.Size(52, 14);
+            this.lblTimePerCallMinutes.Size = new System.Drawing.Size(91, 23);
             this.lblTimePerCallMinutes.TabIndex = 73;
             this.lblTimePerCallMinutes.Text = "(minutes)";
             // 
             // label16
             // 
-            this.label16.Location = new System.Drawing.Point(132, 314);
+            this.label16.Location = new System.Drawing.Point(264, 725);
+            this.label16.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(203, 30);
+            this.label16.Size = new System.Drawing.Size(406, 69);
             this.label16.TabIndex = 72;
             this.label16.Text = "These settings will require GHost/2 to be restarted before they will take effect." +
     "";
             // 
             // cmdSave
             // 
-            this.cmdSave.Location = new System.Drawing.Point(341, 321);
+            this.cmdSave.Location = new System.Drawing.Point(682, 741);
+            this.cmdSave.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.cmdSave.Name = "cmdSave";
-            this.cmdSave.Size = new System.Drawing.Size(75, 23);
+            this.cmdSave.Size = new System.Drawing.Size(150, 53);
             this.cmdSave.TabIndex = 63;
             this.cmdSave.Text = "&Save";
             this.cmdSave.UseVisualStyleBackColor = true;
@@ -460,70 +467,78 @@ namespace MajorBBS.GHost
             // lblTimeFormatUISample
             // 
             this.lblTimeFormatUISample.AutoSize = true;
-            this.lblTimeFormatUISample.Location = new System.Drawing.Point(250, 241);
+            this.lblTimeFormatUISample.Location = new System.Drawing.Point(500, 556);
+            this.lblTimeFormatUISample.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblTimeFormatUISample.Name = "lblTimeFormatUISample";
-            this.lblTimeFormatUISample.Size = new System.Drawing.Size(75, 14);
+            this.lblTimeFormatUISample.Size = new System.Drawing.Size(141, 23);
             this.lblTimeFormatUISample.TabIndex = 71;
             this.lblTimeFormatUISample.Text = "UI sample time";
             // 
             // lblTimeFormatLogSample
             // 
             this.lblTimeFormatLogSample.AutoSize = true;
-            this.lblTimeFormatLogSample.Location = new System.Drawing.Point(250, 222);
+            this.lblTimeFormatLogSample.Location = new System.Drawing.Point(500, 512);
+            this.lblTimeFormatLogSample.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblTimeFormatLogSample.Name = "lblTimeFormatLogSample";
-            this.lblTimeFormatLogSample.Size = new System.Drawing.Size(108, 14);
+            this.lblTimeFormatLogSample.Size = new System.Drawing.Size(200, 23);
             this.lblTimeFormatLogSample.TabIndex = 70;
             this.lblTimeFormatLogSample.Text = "Log sample date/time";
             // 
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(216, 241);
+            this.label15.Location = new System.Drawing.Point(432, 556);
+            this.label15.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(19, 14);
+            this.label15.Size = new System.Drawing.Size(35, 23);
             this.label15.TabIndex = 69;
             this.label15.Text = "UI:";
             // 
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(216, 222);
+            this.label14.Location = new System.Drawing.Point(432, 512);
+            this.label14.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(28, 14);
+            this.label14.Size = new System.Drawing.Size(49, 23);
             this.label14.TabIndex = 68;
             this.label14.Text = "Log:";
             // 
             // txtTimeFormatUI
             // 
-            this.txtTimeFormatUI.Location = new System.Drawing.Point(330, 190);
+            this.txtTimeFormatUI.Location = new System.Drawing.Point(660, 438);
+            this.txtTimeFormatUI.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.txtTimeFormatUI.Name = "txtTimeFormatUI";
-            this.txtTimeFormatUI.Size = new System.Drawing.Size(86, 20);
+            this.txtTimeFormatUI.Size = new System.Drawing.Size(168, 30);
             this.txtTimeFormatUI.TabIndex = 61;
             this.txtTimeFormatUI.Tag = "UI Time Format";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(327, 174);
+            this.label13.Location = new System.Drawing.Point(654, 402);
+            this.label13.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(77, 14);
+            this.label13.Size = new System.Drawing.Size(146, 23);
             this.label13.TabIndex = 67;
             this.label13.Text = "UI Time Format";
             // 
             // txtTimeFormatLog
             // 
-            this.txtTimeFormatLog.Location = new System.Drawing.Point(216, 190);
+            this.txtTimeFormatLog.Location = new System.Drawing.Point(432, 438);
+            this.txtTimeFormatLog.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.txtTimeFormatLog.Name = "txtTimeFormatLog";
-            this.txtTimeFormatLog.Size = new System.Drawing.Size(86, 20);
+            this.txtTimeFormatLog.Size = new System.Drawing.Size(168, 30);
             this.txtTimeFormatLog.TabIndex = 59;
             this.txtTimeFormatLog.Tag = "Log Time Format";
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(216, 174);
+            this.label12.Location = new System.Drawing.Point(432, 402);
+            this.label12.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(86, 14);
+            this.label12.Size = new System.Drawing.Size(160, 23);
             this.label12.TabIndex = 66;
             this.label12.Text = "Log Time Format";
             // 
@@ -532,146 +547,163 @@ namespace MajorBBS.GHost
             this.cboRLoginServerIP.FormattingEnabled = true;
             this.cboRLoginServerIP.Items.AddRange(new object[] {
             "All IP addresses"});
-            this.cboRLoginServerIP.Location = new System.Drawing.Point(233, 40);
+            this.cboRLoginServerIP.Location = new System.Drawing.Point(466, 92);
+            this.cboRLoginServerIP.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.cboRLoginServerIP.Name = "cboRLoginServerIP";
-            this.cboRLoginServerIP.Size = new System.Drawing.Size(135, 22);
+            this.cboRLoginServerIP.Size = new System.Drawing.Size(266, 30);
             this.cboRLoginServerIP.TabIndex = 52;
             this.cboRLoginServerIP.Tag = "RLogin Server IP";
             this.cboRLoginServerIP.Text = "All IP addresses";
             // 
             // txtRLoginServerPort
             // 
-            this.txtRLoginServerPort.Location = new System.Drawing.Point(374, 41);
+            this.txtRLoginServerPort.Location = new System.Drawing.Point(748, 95);
+            this.txtRLoginServerPort.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.txtRLoginServerPort.Name = "txtRLoginServerPort";
-            this.txtRLoginServerPort.Size = new System.Drawing.Size(59, 20);
+            this.txtRLoginServerPort.Size = new System.Drawing.Size(114, 30);
             this.txtRLoginServerPort.TabIndex = 54;
             this.txtRLoginServerPort.Tag = "RLogin Server Port";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(233, 25);
+            this.label9.Location = new System.Drawing.Point(466, 58);
+            this.label9.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(174, 14);
+            this.label9.Size = new System.Drawing.Size(319, 23);
             this.label9.TabIndex = 62;
             this.label9.Text = "RLogin Server IP Address and Port";
             // 
             // txtTimePerCall
             // 
-            this.txtTimePerCall.Location = new System.Drawing.Point(14, 241);
+            this.txtTimePerCall.Location = new System.Drawing.Point(28, 556);
+            this.txtTimePerCall.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.txtTimePerCall.Name = "txtTimePerCall";
-            this.txtTimePerCall.Size = new System.Drawing.Size(59, 20);
+            this.txtTimePerCall.Size = new System.Drawing.Size(114, 30);
             this.txtTimePerCall.TabIndex = 49;
             this.txtTimePerCall.Tag = "Time Per Call";
             // 
             // lblTimePerCall
             // 
             this.lblTimePerCall.AutoSize = true;
-            this.lblTimePerCall.Location = new System.Drawing.Point(14, 225);
+            this.lblTimePerCall.Location = new System.Drawing.Point(28, 519);
+            this.lblTimePerCall.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.lblTimePerCall.Name = "lblTimePerCall";
-            this.lblTimePerCall.Size = new System.Drawing.Size(68, 14);
+            this.lblTimePerCall.Size = new System.Drawing.Size(128, 23);
             this.lblTimePerCall.TabIndex = 56;
             this.lblTimePerCall.Text = "Time Per Call";
             // 
             // txtLastNode
             // 
-            this.txtLastNode.Location = new System.Drawing.Point(101, 193);
+            this.txtLastNode.Location = new System.Drawing.Point(202, 445);
+            this.txtLastNode.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.txtLastNode.Name = "txtLastNode";
-            this.txtLastNode.Size = new System.Drawing.Size(59, 20);
+            this.txtLastNode.Size = new System.Drawing.Size(114, 30);
             this.txtLastNode.TabIndex = 48;
             this.txtLastNode.Tag = "End Node Number";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(79, 196);
+            this.label6.Location = new System.Drawing.Point(158, 452);
+            this.label6.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(16, 14);
+            this.label6.Size = new System.Drawing.Size(27, 23);
             this.label6.TabIndex = 53;
             this.label6.Text = "to";
             // 
             // txtFirstNode
             // 
-            this.txtFirstNode.Location = new System.Drawing.Point(14, 193);
+            this.txtFirstNode.Location = new System.Drawing.Point(28, 445);
+            this.txtFirstNode.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.txtFirstNode.Name = "txtFirstNode";
-            this.txtFirstNode.Size = new System.Drawing.Size(59, 20);
+            this.txtFirstNode.Size = new System.Drawing.Size(114, 30);
             this.txtFirstNode.TabIndex = 46;
             this.txtFirstNode.Tag = "Start Node Number";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(14, 177);
+            this.label5.Location = new System.Drawing.Point(28, 408);
+            this.label5.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(146, 14);
+            this.label5.Size = new System.Drawing.Size(267, 23);
             this.label5.TabIndex = 50;
             this.label5.Text = "Start and End Node Numbers";
             // 
             // txtSysopEmail
             // 
-            this.txtSysopEmail.Location = new System.Drawing.Point(14, 145);
+            this.txtSysopEmail.Location = new System.Drawing.Point(28, 335);
+            this.txtSysopEmail.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.txtSysopEmail.Name = "txtSysopEmail";
-            this.txtSysopEmail.Size = new System.Drawing.Size(200, 20);
+            this.txtSysopEmail.Size = new System.Drawing.Size(396, 30);
             this.txtSysopEmail.TabIndex = 45;
             this.txtSysopEmail.Tag = "Sysop Email Address";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 129);
+            this.label4.Location = new System.Drawing.Point(28, 298);
+            this.label4.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(109, 14);
+            this.label4.Size = new System.Drawing.Size(197, 23);
             this.label4.TabIndex = 47;
             this.label4.Text = "Sysop Email Address";
             // 
             // txtSysopLastName
             // 
-            this.txtSysopLastName.Location = new System.Drawing.Point(14, 106);
+            this.txtSysopLastName.Location = new System.Drawing.Point(28, 245);
+            this.txtSysopLastName.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.txtSysopLastName.Name = "txtSysopLastName";
-            this.txtSysopLastName.Size = new System.Drawing.Size(200, 20);
+            this.txtSysopLastName.Size = new System.Drawing.Size(396, 30);
             this.txtSysopLastName.TabIndex = 43;
             this.txtSysopLastName.Tag = "Sysop Last Name";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(14, 90);
+            this.label3.Location = new System.Drawing.Point(28, 208);
+            this.label3.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(92, 14);
+            this.label3.Size = new System.Drawing.Size(166, 23);
             this.label3.TabIndex = 44;
             this.label3.Text = "Sysop Last Name";
             // 
             // txtSysopFirstName
             // 
-            this.txtSysopFirstName.Location = new System.Drawing.Point(14, 67);
+            this.txtSysopFirstName.Location = new System.Drawing.Point(28, 155);
+            this.txtSysopFirstName.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.txtSysopFirstName.Name = "txtSysopFirstName";
-            this.txtSysopFirstName.Size = new System.Drawing.Size(200, 20);
+            this.txtSysopFirstName.Size = new System.Drawing.Size(396, 30);
             this.txtSysopFirstName.TabIndex = 42;
             this.txtSysopFirstName.Tag = "Sysop First Name";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(14, 51);
+            this.label2.Location = new System.Drawing.Point(28, 118);
+            this.label2.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(92, 14);
+            this.label2.Size = new System.Drawing.Size(167, 23);
             this.label2.TabIndex = 41;
             this.label2.Text = "Sysop First Name";
             // 
             // txtBBSName
             // 
-            this.txtBBSName.Location = new System.Drawing.Point(14, 28);
+            this.txtBBSName.Location = new System.Drawing.Point(28, 65);
+            this.txtBBSName.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.txtBBSName.Name = "txtBBSName";
-            this.txtBBSName.Size = new System.Drawing.Size(200, 20);
+            this.txtBBSName.Size = new System.Drawing.Size(396, 30);
             this.txtBBSName.TabIndex = 40;
             this.txtBBSName.Tag = "BBS Name";
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(14, 12);
+            this.label1.Location = new System.Drawing.Point(28, 28);
+            this.label1.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(58, 14);
+            this.label1.Size = new System.Drawing.Size(106, 23);
             this.label1.TabIndex = 39;
             this.label1.Text = "BBS Name";
             // 
@@ -681,20 +713,21 @@ namespace MajorBBS.GHost
             this.tabPlatforms.Controls.Add(this.btnPlatformEdit);
             this.tabPlatforms.Controls.Add(this.btnPlatformAdd);
             this.tabPlatforms.Controls.Add(this.lsboxPlatforms);
-            this.tabPlatforms.Location = new System.Drawing.Point(4, 22);
+            this.tabPlatforms.Location = new System.Drawing.Point(4, 39);
+            this.tabPlatforms.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.tabPlatforms.Name = "tabPlatforms";
-            this.tabPlatforms.Padding = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.tabPlatforms.Size = new System.Drawing.Size(451, 364);
+            this.tabPlatforms.Padding = new System.Windows.Forms.Padding(6, 7, 6, 7);
+            this.tabPlatforms.Size = new System.Drawing.Size(910, 857);
             this.tabPlatforms.TabIndex = 1;
             this.tabPlatforms.Text = "Platform Targets";
             this.tabPlatforms.UseVisualStyleBackColor = true;
             // 
             // btnPlatformDelete
             // 
-            this.btnPlatformDelete.Location = new System.Drawing.Point(279, 105);
-            this.btnPlatformDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPlatformDelete.Location = new System.Drawing.Point(558, 242);
+            this.btnPlatformDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnPlatformDelete.Name = "btnPlatformDelete";
-            this.btnPlatformDelete.Size = new System.Drawing.Size(66, 29);
+            this.btnPlatformDelete.Size = new System.Drawing.Size(132, 67);
             this.btnPlatformDelete.TabIndex = 7;
             this.btnPlatformDelete.Text = "Delete";
             this.btnPlatformDelete.UseVisualStyleBackColor = true;
@@ -702,10 +735,10 @@ namespace MajorBBS.GHost
             // 
             // btnPlatformEdit
             // 
-            this.btnPlatformEdit.Location = new System.Drawing.Point(279, 73);
-            this.btnPlatformEdit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPlatformEdit.Location = new System.Drawing.Point(558, 168);
+            this.btnPlatformEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnPlatformEdit.Name = "btnPlatformEdit";
-            this.btnPlatformEdit.Size = new System.Drawing.Size(66, 29);
+            this.btnPlatformEdit.Size = new System.Drawing.Size(132, 67);
             this.btnPlatformEdit.TabIndex = 6;
             this.btnPlatformEdit.Text = "Edit";
             this.btnPlatformEdit.UseVisualStyleBackColor = true;
@@ -713,10 +746,10 @@ namespace MajorBBS.GHost
             // 
             // btnPlatformAdd
             // 
-            this.btnPlatformAdd.Location = new System.Drawing.Point(279, 40);
-            this.btnPlatformAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnPlatformAdd.Location = new System.Drawing.Point(558, 92);
+            this.btnPlatformAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnPlatformAdd.Name = "btnPlatformAdd";
-            this.btnPlatformAdd.Size = new System.Drawing.Size(66, 29);
+            this.btnPlatformAdd.Size = new System.Drawing.Size(132, 67);
             this.btnPlatformAdd.TabIndex = 5;
             this.btnPlatformAdd.Text = "Add";
             this.btnPlatformAdd.UseVisualStyleBackColor = true;
@@ -725,10 +758,11 @@ namespace MajorBBS.GHost
             // lsboxPlatforms
             // 
             this.lsboxPlatforms.FormattingEnabled = true;
-            this.lsboxPlatforms.Location = new System.Drawing.Point(99, 40);
-            this.lsboxPlatforms.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lsboxPlatforms.ItemHeight = 30;
+            this.lsboxPlatforms.Location = new System.Drawing.Point(198, 92);
+            this.lsboxPlatforms.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lsboxPlatforms.Name = "lsboxPlatforms";
-            this.lsboxPlatforms.Size = new System.Drawing.Size(179, 225);
+            this.lsboxPlatforms.Size = new System.Drawing.Size(354, 514);
             this.lsboxPlatforms.TabIndex = 4;
             // 
             // tabDoors
@@ -738,19 +772,21 @@ namespace MajorBBS.GHost
             this.tabDoors.Controls.Add(this.btnDoorsDelete);
             this.tabDoors.Controls.Add(this.btnDoorsEdit);
             this.tabDoors.Controls.Add(this.lsboxDoors);
-            this.tabDoors.Location = new System.Drawing.Point(4, 22);
+            this.tabDoors.Location = new System.Drawing.Point(4, 39);
+            this.tabDoors.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.tabDoors.Name = "tabDoors";
-            this.tabDoors.Size = new System.Drawing.Size(451, 364);
+            this.tabDoors.Size = new System.Drawing.Size(910, 857);
             this.tabDoors.TabIndex = 2;
             this.tabDoors.Text = "Doors";
             this.tabDoors.UseVisualStyleBackColor = true;
             // 
             // btnDoorsTest
             // 
-            this.btnDoorsTest.Location = new System.Drawing.Point(339, 157);
-            this.btnDoorsTest.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDoorsTest.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnDoorsTest.Location = new System.Drawing.Point(678, 363);
+            this.btnDoorsTest.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDoorsTest.Name = "btnDoorsTest";
-            this.btnDoorsTest.Size = new System.Drawing.Size(68, 29);
+            this.btnDoorsTest.Size = new System.Drawing.Size(136, 67);
             this.btnDoorsTest.TabIndex = 7;
             this.btnDoorsTest.Text = "Test";
             this.btnDoorsTest.UseVisualStyleBackColor = true;
@@ -759,10 +795,10 @@ namespace MajorBBS.GHost
             // btnDoorsAdd
             // 
             this.btnDoorsAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDoorsAdd.Location = new System.Drawing.Point(339, 58);
-            this.btnDoorsAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDoorsAdd.Location = new System.Drawing.Point(678, 134);
+            this.btnDoorsAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDoorsAdd.Name = "btnDoorsAdd";
-            this.btnDoorsAdd.Size = new System.Drawing.Size(68, 29);
+            this.btnDoorsAdd.Size = new System.Drawing.Size(136, 67);
             this.btnDoorsAdd.TabIndex = 6;
             this.btnDoorsAdd.Text = "Add";
             this.btnDoorsAdd.UseVisualStyleBackColor = true;
@@ -771,10 +807,10 @@ namespace MajorBBS.GHost
             // btnDoorsDelete
             // 
             this.btnDoorsDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDoorsDelete.Location = new System.Drawing.Point(339, 124);
-            this.btnDoorsDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDoorsDelete.Location = new System.Drawing.Point(678, 286);
+            this.btnDoorsDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDoorsDelete.Name = "btnDoorsDelete";
-            this.btnDoorsDelete.Size = new System.Drawing.Size(68, 29);
+            this.btnDoorsDelete.Size = new System.Drawing.Size(136, 67);
             this.btnDoorsDelete.TabIndex = 5;
             this.btnDoorsDelete.Text = "Delete";
             this.btnDoorsDelete.UseVisualStyleBackColor = true;
@@ -783,10 +819,10 @@ namespace MajorBBS.GHost
             // btnDoorsEdit
             // 
             this.btnDoorsEdit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btnDoorsEdit.Location = new System.Drawing.Point(339, 91);
-            this.btnDoorsEdit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnDoorsEdit.Location = new System.Drawing.Point(678, 210);
+            this.btnDoorsEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDoorsEdit.Name = "btnDoorsEdit";
-            this.btnDoorsEdit.Size = new System.Drawing.Size(68, 29);
+            this.btnDoorsEdit.Size = new System.Drawing.Size(136, 67);
             this.btnDoorsEdit.TabIndex = 4;
             this.btnDoorsEdit.Text = "Edit";
             this.btnDoorsEdit.UseVisualStyleBackColor = true;
@@ -798,10 +834,11 @@ namespace MajorBBS.GHost
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.lsboxDoors.FormattingEnabled = true;
-            this.lsboxDoors.Location = new System.Drawing.Point(63, 58);
-            this.lsboxDoors.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lsboxDoors.ItemHeight = 30;
+            this.lsboxDoors.Location = new System.Drawing.Point(126, 134);
+            this.lsboxDoors.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lsboxDoors.Name = "lsboxDoors";
-            this.lsboxDoors.Size = new System.Drawing.Size(268, 264);
+            this.lsboxDoors.Size = new System.Drawing.Size(532, 634);
             this.lsboxDoors.TabIndex = 3;
             // 
             // tabEvents
@@ -811,10 +848,10 @@ namespace MajorBBS.GHost
             this.tabEvents.Controls.Add(this.btnTimeEventEdit);
             this.tabEvents.Controls.Add(this.btnTimeEventAdd);
             this.tabEvents.Controls.Add(this.lboxTimeEvents);
-            this.tabEvents.Location = new System.Drawing.Point(4, 22);
-            this.tabEvents.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.tabEvents.Location = new System.Drawing.Point(4, 39);
+            this.tabEvents.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tabEvents.Name = "tabEvents";
-            this.tabEvents.Size = new System.Drawing.Size(451, 364);
+            this.tabEvents.Size = new System.Drawing.Size(910, 857);
             this.tabEvents.TabIndex = 4;
             this.tabEvents.Text = "Events";
             this.tabEvents.UseVisualStyleBackColor = true;
@@ -822,18 +859,19 @@ namespace MajorBBS.GHost
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(46, 14);
+            this.label17.Location = new System.Drawing.Point(92, 32);
+            this.label17.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(72, 13);
+            this.label17.Size = new System.Drawing.Size(136, 30);
             this.label17.TabIndex = 6;
             this.label17.Text = "Timed Events";
             // 
             // btnTimeEventDelete
             // 
-            this.btnTimeEventDelete.Location = new System.Drawing.Point(334, 105);
-            this.btnTimeEventDelete.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTimeEventDelete.Location = new System.Drawing.Point(668, 242);
+            this.btnTimeEventDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnTimeEventDelete.Name = "btnTimeEventDelete";
-            this.btnTimeEventDelete.Size = new System.Drawing.Size(75, 30);
+            this.btnTimeEventDelete.Size = new System.Drawing.Size(150, 69);
             this.btnTimeEventDelete.TabIndex = 3;
             this.btnTimeEventDelete.Text = "Delete";
             this.btnTimeEventDelete.UseVisualStyleBackColor = true;
@@ -841,10 +879,10 @@ namespace MajorBBS.GHost
             // 
             // btnTimeEventEdit
             // 
-            this.btnTimeEventEdit.Location = new System.Drawing.Point(334, 68);
-            this.btnTimeEventEdit.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTimeEventEdit.Location = new System.Drawing.Point(668, 157);
+            this.btnTimeEventEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnTimeEventEdit.Name = "btnTimeEventEdit";
-            this.btnTimeEventEdit.Size = new System.Drawing.Size(75, 30);
+            this.btnTimeEventEdit.Size = new System.Drawing.Size(150, 69);
             this.btnTimeEventEdit.TabIndex = 2;
             this.btnTimeEventEdit.Text = "Edit";
             this.btnTimeEventEdit.UseVisualStyleBackColor = true;
@@ -852,10 +890,10 @@ namespace MajorBBS.GHost
             // 
             // btnTimeEventAdd
             // 
-            this.btnTimeEventAdd.Location = new System.Drawing.Point(334, 30);
-            this.btnTimeEventAdd.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.btnTimeEventAdd.Location = new System.Drawing.Point(668, 69);
+            this.btnTimeEventAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnTimeEventAdd.Name = "btnTimeEventAdd";
-            this.btnTimeEventAdd.Size = new System.Drawing.Size(75, 30);
+            this.btnTimeEventAdd.Size = new System.Drawing.Size(150, 69);
             this.btnTimeEventAdd.TabIndex = 1;
             this.btnTimeEventAdd.Text = "Add";
             this.btnTimeEventAdd.UseVisualStyleBackColor = true;
@@ -864,10 +902,11 @@ namespace MajorBBS.GHost
             // lboxTimeEvents
             // 
             this.lboxTimeEvents.FormattingEnabled = true;
-            this.lboxTimeEvents.Location = new System.Drawing.Point(49, 30);
-            this.lboxTimeEvents.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.lboxTimeEvents.ItemHeight = 30;
+            this.lboxTimeEvents.Location = new System.Drawing.Point(98, 69);
+            this.lboxTimeEvents.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.lboxTimeEvents.Name = "lboxTimeEvents";
-            this.lboxTimeEvents.Size = new System.Drawing.Size(281, 290);
+            this.lboxTimeEvents.Size = new System.Drawing.Size(558, 664);
             this.lboxTimeEvents.TabIndex = 0;
             this.lboxTimeEvents.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
@@ -875,7 +914,6 @@ namespace MajorBBS.GHost
             // 
             this.watcherDoors.EnableRaisingEvents = true;
             this.watcherDoors.Filter = "*.ini";
-            this.watcherDoors.Path = "doors";
             this.watcherDoors.SynchronizingObject = this;
             this.watcherDoors.Changed += new System.IO.FileSystemEventHandler(this.OnDoorChanged);
             this.watcherDoors.Created += new System.IO.FileSystemEventHandler(this.OnDoorChanged);
@@ -885,7 +923,6 @@ namespace MajorBBS.GHost
             // 
             this.watcherPlatforms.EnableRaisingEvents = true;
             this.watcherPlatforms.Filter = "*.ini";
-            this.watcherPlatforms.Path = "platforms";
             this.watcherPlatforms.SynchronizingObject = this;
             this.watcherPlatforms.Changed += new System.IO.FileSystemEventHandler(this.OnPlatformChanged);
             this.watcherPlatforms.Created += new System.IO.FileSystemEventHandler(this.OnPlatformChanged);
@@ -893,16 +930,17 @@ namespace MajorBBS.GHost
             // 
             // frmMain
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(487, 418);
+            this.ClientSize = new System.Drawing.Size(974, 965);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(6, 7, 6, 7);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmMain";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "GHost/2 Configuration";
             this.tabControl1.ResumeLayout(false);
             this.tabAbout.ResumeLayout(false);

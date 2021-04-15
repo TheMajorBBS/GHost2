@@ -189,6 +189,45 @@ namespace MajorBBS.GHost
             return Result;
         }
 
+
+        // This method is used to find a node instance free for the incoming request to be used.
+        public static int GetFreeDoorNode(ClientThread clientThread)
+        {
+            int foundResult = 0;
+
+            if (clientThread == null) return -1;
+            
+            int maxInstances = clientThread.NodeInfo.Door.MaxDoorNodes;
+            bool[] instanceNodes = new bool[maxInstances];
+            string doorName = clientThread.NodeInfo.Door.Name;
+
+            lock(_ListLock)
+            {
+                // find what instances are active
+                for(int i = Config.Instance.FirstNode; i <= Config.Instance.LastNode; i++)
+                {
+                    ClientThread clientSearch = _ClientThreads[i];
+                    if (clientSearch != null &&
+                        clientSearch.NodeInfo.Door.Name == doorName &&
+                        clientSearch.DoorNode > 0) // 0 means free node hasn't been found
+                    {
+                        // shift index by -1 so that array index is 0 to maxInstance-1
+                        instanceNodes[clientSearch.DoorNode-1] = true;
+                    }
+                }
+
+                // search through found instances.  Use reverse order so return is always the smallest value.
+                for(int i=maxInstances-1; i>-1; i--)
+                {
+                    if (instanceNodes[i] == false) foundResult = i + 1;
+                }
+            }
+
+            clientThread.DoorNode = foundResult;
+            // 0 = no available node within maxInstances found; -1 = error happened.
+            return foundResult;
+        }
+
         private static bool IsValidNode(int node)
         {
             return ((node >= Config.Instance.FirstNode) && (node <= Config.Instance.LastNode));
@@ -230,6 +269,13 @@ namespace MajorBBS.GHost
                 DisplayAnsi("LOGON_TWO_NODES", NodeToKill);
                 DisconnectNode(NodeToKill);
             }
+        }
+
+        public static int FindFreeDoorNode(string doorName)
+        {
+            int found = 0;
+
+            return found;
         }
 
         public static void Start()

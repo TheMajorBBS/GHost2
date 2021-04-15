@@ -73,6 +73,7 @@ namespace DoorEditor
                 cbPlatforms.Text = GetPlatformTitle(info.Platform);
                 chkClearAfter.IsChecked = info.ClearScreenAfter;
                 chkClearBefore.IsChecked = info.ClearScreenBefore;
+                textDoorNode.Text = info.MaxDoorNodes > 0 ? info.MaxDoorNodes.ToString() : "5";
             }
             //info = new DoorInfo();
         }
@@ -97,6 +98,7 @@ namespace DoorEditor
 
         private void Save()
         {
+            int maxNodes = int.Parse(textDoorNode.Text) > 0 ? int.Parse(textDoorNode.Text) : 5;
             info.Authorization = textAuthorization.Text;
             info.Command = textCommand.Text;
             info.Name = textName.Text;
@@ -104,6 +106,7 @@ namespace DoorEditor
             info.Platform = GetPlatformName(cbPlatforms.Text);
             info.ClearScreenAfter = (bool)chkClearAfter.IsChecked;
             info.ClearScreenBefore = (bool)chkClearBefore.IsChecked;
+            info.MaxDoorNodes = maxNodes;
             info.Save();
         }
 
@@ -116,6 +119,11 @@ namespace DoorEditor
         private void btnCancel_Click(object sender, RoutedEventArgs e)
         {
             Close();
+        }
+
+        private void textDoorNode_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
+        {
+
         }
     }
 }

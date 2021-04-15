@@ -40,11 +40,7 @@ namespace MajorBBS.GHost
         private void WriteDropFile(string fileName, List<string> lines)
         {
             FileUtils.FileWriteAllText(
-                StringUtils.PathCombine(
-                    ProcessUtils.StartupPath,
-                    "node" + _ClientThread.NodeInfo.Node.ToString(),
-                    fileName
-                ),
+                Path.Combine(NodePath(), fileName),
                 String.Join("\r\n", lines.ToArray())
             );
         }
@@ -98,7 +94,7 @@ namespace MajorBBS.GHost
             Sl.Add("COM1:");                                                                // 1 - Comm Port
             Sl.Add("38400");                                                                // 2 - Connection Baud Rate
             Sl.Add("8");                                                                    // 3 - Parity
-            Sl.Add(_ClientThread.NodeInfo.Node.ToString());                                 // 4 - Current Node Number
+            Sl.Add(_ClientThread.DoorNode.ToString());                                 // 4 - Current Node Number
             Sl.Add("38400");                                                                // 5 - Locked Baud Rate
             Sl.Add("Y");                                                                    // 6 - Screen Display
             Sl.Add("Y");                                                                    // 7 - Printer Toggle
@@ -171,7 +167,7 @@ namespace MajorBBS.GHost
                 case TerminalType.ASCII: Sl.Add("0"); break;
                 case TerminalType.RIP: Sl.Add("3"); break;
             }
-            Sl.Add(_ClientThread.NodeInfo.Node.ToString());                 // 11 - Current Node Number
+            Sl.Add(_ClientThread.DoorNode.ToString());                 // 11 - Current Node Number
             WriteDropFile("door32.sys", Sl);
         }
 
@@ -213,12 +209,25 @@ namespace MajorBBS.GHost
             Sl.Add("1");                                                                    // 13 - Fossil?
             WriteDropFile("dorinfo.def", Sl);
             WriteDropFile("dorinfo1.dat", Sl);
-            WriteDropFile("dorinfo" + _ClientThread.NodeInfo.Node.ToString() + ".def", Sl);
+            WriteDropFile("dorinfo" + _ClientThread.DoorNode.ToString() + ".def", Sl);
+        }
+
+        private string NodePath()
+        {
+            string doorShortName = Path.GetFileNameWithoutExtension(_ClientThread.NodeInfo.Door.FileName);
+            return StringUtils.PathCombine(
+                ProcessUtils.StartupPath,
+                "run",
+                doorShortName,
+                "node" + _ClientThread.DoorNode.ToString()
+            );
         }
 
         private void CreateNodeDirectory()
         {
-            Directory.CreateDirectory(StringUtils.PathCombine(ProcessUtils.StartupPath, "node" + _ClientThread.NodeInfo.Node.ToString()));
+            string directoryPath = NodePath();
+
+            Directory.CreateDirectory(directoryPath);
 
             CreateDropChain();
             CreateDropDoor();
@@ -290,6 +299,7 @@ namespace MajorBBS.GHost
                         .Replace("%exe%", TranslateCLS(_ClientThread.NodeInfo.Door.Command))
                         .Replace("%node%", _ClientThread.NodeInfo.Node.ToString())
                         .Replace("%handle%", _ClientThread.NodeInfo.Connection.Handle.ToString())
+                        .Replace("%nodepath%", StringUtils.ConvertToRelativePath(NodePath()))
                     : TranslateCLS(_ClientThread.NodeInfo.Door.Command);
         }
 
@@ -318,8 +328,7 @@ namespace MajorBBS.GHost
                  */
 
                 string scriptPath = StringUtils.PathCombine(
-                    ProcessUtils.StartupPath,
-                    "node" + _ClientThread.NodeInfo.Node.ToString(),
+                    NodePath(),
                     platform.BootstrapName
                 );
 
@@ -500,18 +509,20 @@ namespace MajorBBS.GHost
 
         private string TranslateCLS(string command)
         {
+            string nodePath = NodePath();
             List<KeyValuePair<string, string>> CLS = new List<KeyValuePair<string, string>>() {
                 new KeyValuePair<string, string>("**ALIAS", _ClientThread.NodeInfo.User.Alias),
-                new KeyValuePair<string, string>("DOOR32", StringUtils.ExtractShortPathName(StringUtils.PathCombine(ProcessUtils.StartupPath, "node" + _ClientThread.NodeInfo.Node.ToString(), "door32.sys"))),
-                new KeyValuePair<string, string>("DOORSYS", StringUtils.ExtractShortPathName(StringUtils.PathCombine(ProcessUtils.StartupPath, "node" + _ClientThread.NodeInfo.Node.ToString(), "door.sys"))),
-                new KeyValuePair<string, string>("DOORFILE", StringUtils.ExtractShortPathName(StringUtils.PathCombine(ProcessUtils.StartupPath, "node" + _ClientThread.NodeInfo.Node.ToString(), "doorfile.sr"))),
-                new KeyValuePair<string, string>("DORINFOx", StringUtils.ExtractShortPathName(StringUtils.PathCombine(ProcessUtils.StartupPath, "node" + _ClientThread.NodeInfo.Node.ToString(), "dorinfo" + _ClientThread.NodeInfo.Node.ToString() + ".def"))),
-                new KeyValuePair<string, string>("DORINFO1", StringUtils.ExtractShortPathName(StringUtils.PathCombine(ProcessUtils.StartupPath, "node" + _ClientThread.NodeInfo.Node.ToString(), "dorinfo1.def"))),
-                new KeyValuePair<string, string>("DORINFO", StringUtils.ExtractShortPathName(StringUtils.PathCombine(ProcessUtils.StartupPath, "node" + _ClientThread.NodeInfo.Node.ToString(), "dorinfo.def"))),
+                new KeyValuePair<string, string>("NODEPATH", StringUtils.ConvertToRelativePath(nodePath)),
+                new KeyValuePair<string, string>("DOOR32", StringUtils.ExtractShortPathName(StringUtils.PathCombine(nodePath, "door32.sys"))),
+                new KeyValuePair<string, string>("DOORSYS", StringUtils.ExtractShortPathName(StringUtils.PathCombine(nodePath, "door.sys"))),
+                new KeyValuePair<string, string>("DOORFILE", StringUtils.ExtractShortPathName(StringUtils.PathCombine(nodePath, "doorfile.sr"))),
+                new KeyValuePair<string, string>("DORINFOx", StringUtils.ExtractShortPathName(StringUtils.PathCombine(nodePath, "dorinfo" + _ClientThread.NodeInfo.Node.ToString() + ".def"))),
+                new KeyValuePair<string, string>("DORINFO1", StringUtils.ExtractShortPathName(StringUtils.PathCombine(nodePath, "dorinfo1.def"))),
+                new KeyValuePair<string, string>("DORINFO", StringUtils.ExtractShortPathName(StringUtils.PathCombine(nodePath, "dorinfo.def"))),
                 new KeyValuePair<string, string>("HANDLE", _ClientThread.NodeInfo.Connection.Handle.ToString()),
                 new KeyValuePair<string, string>("IPADDRESS", _ClientThread.NodeInfo.Connection.GetRemoteIP()),
                 new KeyValuePair<string, string>("MINUTESLEFT", _ClientThread.NodeInfo.MinutesLeft.ToString()),
-                new KeyValuePair<string, string>("NODE", _ClientThread.NodeInfo.Node.ToString()),
+                new KeyValuePair<string, string>("NODE", _ClientThread.DoorNode.ToString()),
                 new KeyValuePair<string, string>("**PASSWORD", _ClientThread.NodeInfo.User.PasswordHash),
                 new KeyValuePair<string, string>("SECONDSLEFT", _ClientThread.NodeInfo.SecondsLeft.ToString()),
                 new KeyValuePair<string, string>("SOCKETHANDLE", _ClientThread.NodeInfo.Connection.Handle.ToString()),

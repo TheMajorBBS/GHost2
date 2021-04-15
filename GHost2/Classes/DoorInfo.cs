@@ -36,6 +36,7 @@ namespace MajorBBS.GHost
         public string Authorization { get; set; }
         public bool ClearScreenBefore { get; set; }
         public bool ClearScreenAfter { get; set; }
+        public int MaxDoorNodes { get; set; }
 
         public DoorInfo(string door)
             : base(ConfigSaveLocation.Relative, StringUtils.PathCombine("doors", door.ToLower() + ".ini"))
@@ -51,6 +52,7 @@ namespace MajorBBS.GHost
             Authorization = "+[default]";
             ClearScreenAfter = false;
             ClearScreenBefore = false;
+            MaxDoorNodes = 5;
 
             if (Load("DOOR"))
             {

@@ -120,10 +120,5 @@ namespace DoorEditor
         {
             Close();
         }
-
-        private void textDoorNode_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e)
-        {
-
-        }
     }
 }

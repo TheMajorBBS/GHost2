@@ -271,13 +271,6 @@ namespace MajorBBS.GHost
             }
         }
 
-        public static int FindFreeDoorNode(string doorName)
-        {
-            int found = 0;
-
-            return found;
-        }
-
         public static void Start()
         {
             lock (_ListLock)

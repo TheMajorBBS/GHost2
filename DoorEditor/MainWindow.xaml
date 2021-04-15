@@ -22,7 +22,7 @@
         <CheckBox x:Name="chkClearBefore" Content="Clear Screen Before Loading" HorizontalAlignment="Left" Margin="124,189,0,0" VerticalAlignment="Top"/>
         <CheckBox x:Name="chkClearAfter" Content="Clear Screen After Loading" HorizontalAlignment="Left" Margin="124,210,0,0" VerticalAlignment="Top"/>
         <Label Content="Max Door Nodes" HorizontalAlignment="Left" Margin="20,154,0,0" VerticalAlignment="Top"/>
-        <TextBox x:Name="textDoorNode" HorizontalAlignment="Left" Margin="124,158,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="23" TextChanged="textDoorNode_TextChanged"/>
+        <TextBox x:Name="textDoorNode" HorizontalAlignment="Left" Margin="124,158,0,0" Text="TextBox" TextWrapping="Wrap" VerticalAlignment="Top" Width="50" Height="23"/>
 
     </Grid>
 </Window>

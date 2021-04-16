@@ -35,6 +35,8 @@ namespace MajorBBS.GHost
         private NodeInfo _NodeInfo = new NodeInfo();
         private Random _R = new Random();
         private string _Status = "";
+        // door node is the node number used with the door program, not the GHost/2 node.
+        private int _DoorNode = 0;
 
         // TODOZ Add a Disconnect event of some sort to allow a sysop to disconnect another node
         public event EventHandler<NodeEventArgs> NodeEvent = null;
@@ -60,8 +62,15 @@ namespace MajorBBS.GHost
                 GC.Collect();
                 GC.WaitForPendingFinalizers();
 
+                string doorShortName = Path.GetFileNameWithoutExtension(_NodeInfo.Door.FileName);
+
                 // Remove node directory
-                var currentNode = Environment.CurrentDirectory + "\\node" + _NodeInfo.Node.ToString();
+                var currentNode = Path.Combine(
+                    Environment.CurrentDirectory,
+                    "run",
+                    doorShortName,
+                    "node" + _DoorNode.ToString()
+                );
 
                 if (Directory.Exists(currentNode))
                 {
@@ -397,10 +406,11 @@ namespace MajorBBS.GHost
 
                 // Get our node number and bail if there are none available
                 _NodeInfo.Node = NodeManager.GetFreeNode(this);
+  
                 if (_NodeInfo.Node == 0)
                 {
                     DisplayAnsi("SERVER_BUSY");
-                    Thread.Sleep(2500);
+                    RMLog.Error("Ran out of GHost/2 Nodes.");
                     return;
                 }
 
@@ -419,8 +429,16 @@ namespace MajorBBS.GHost
                 // Check if RLogin is requesting to launch a door immediately via the xtrn= command
                 if ((_NodeInfo.Door != null) && _NodeInfo.Door.Loaded)
                 {
-                    (new RunDoor(this)).Run();
-                    Thread.Sleep(2500);
+                    _DoorNode = NodeManager.GetFreeDoorNode(this);
+                    if (_DoorNode > 0)
+                    {
+                        (new RunDoor(this)).Run();
+                    }
+                    else
+                    {
+                        DisplayAnsi("SERVER_BUSY");
+                        RMLog.Error($"Ran out of door instance nodes for '{_NodeInfo.Door.Name}'.");
+                    }
                     return;
                 }
             }
@@ -517,6 +535,19 @@ namespace MajorBBS.GHost
 
         public NodeInfo NodeInfo { get { return _NodeInfo; } }
 
+        public int DoorNode
+        {
+            get
+            {
+                return _DoorNode;
+            }
+
+            set
+            {
+                _DoorNode = value;
+            }
+        }
+
         public void OnDoorWait(object sender, RMProcessStartAndWaitEventArgs e)
         {
             if (e == null)
@@ -594,7 +625,6 @@ namespace MajorBBS.GHost
 
             return Result;
         }
-
 
         public string Status
         {

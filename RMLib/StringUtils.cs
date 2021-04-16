@@ -24,6 +24,7 @@ using System.Net;
 using System.Net.Mail;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace RandM.RMLib
 {
@@ -91,6 +92,12 @@ namespace RandM.RMLib
             {
                 return longPathName;
             }
+        }
+
+        public static string ConvertToRelativePath(string path)
+        {
+            string cwd = Environment.CurrentDirectory;
+            return path.Replace(cwd + "\\", "");
         }
 
         public static bool IsValidEmailAddress(string emailAddress)

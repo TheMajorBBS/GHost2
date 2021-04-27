@@ -406,7 +406,7 @@ namespace MajorBBS.GHost
 
                 // Get our node number and bail if there are none available
                 _NodeInfo.Node = NodeManager.GetFreeNode(this);
-  
+
                 if (_NodeInfo.Node == 0)
                 {
                     DisplayAnsi("SERVER_BUSY");

@@ -21,6 +21,8 @@
 using RandM.RMLib;
 using System;
 using System.Linq;
+using System.Windows.Forms;
+using MajorBBS.GHost.Applications;
 
 namespace MajorBBS.GHost
 {
@@ -33,70 +35,19 @@ namespace MajorBBS.GHost
         static void Main(string[] args)
         {
             new Classes.FixedEvent("startup");
+
             // Check for service mode or console mode
             if (Environment.UserInteractive || OSUtils.IsUnix)
             {
-                // Interactive mode (in other words, not service mode)
-                if (args.Contains("console", StringComparer.OrdinalIgnoreCase))
-                {
-                    ConsoleApp.Start(args);
-                }
-                else if (args.Contains("gui", StringComparer.OrdinalIgnoreCase))
-                {
-                    GuiApp.Start();
-                }
-                else if (args.Contains("service", StringComparer.OrdinalIgnoreCase) && args.Contains("install", StringComparer.OrdinalIgnoreCase))
-                {
-                    ServiceApp.Install();
-                }
-                else if (args.Contains("service", StringComparer.OrdinalIgnoreCase) && args.Contains("uninstall", StringComparer.OrdinalIgnoreCase))
-                {
-                    ServiceApp.Uninstall();
-                }
-                else if (args.Contains("simple", StringComparer.OrdinalIgnoreCase))
-                {
-                    SimpleConsoleApp.Start();
-                }
-                else
-                {
-                    DisplayUsage();
-                }
+                Application.Run(new ConsoleForm());
             }
             else
             {
                 // Non-interactive mode (in other words, service mode)
                 ServiceApp.Start();
             }
-            new Classes.FixedEvent("shutdown");
-        }
 
-        private static void DisplayUsage()
-        {
-            Console.WriteLine();
-            Console.WriteLine("GHost.exe Usage:");
-            Console.WriteLine();
-            Console.WriteLine("  CONSOLE MODE");
-            Console.WriteLine("  ============");
-            Console.WriteLine("      Fancy:       GHost.exe console");
-            Console.WriteLine("      Simple:      GHost.exe simple");
-            Console.WriteLine();
-            Console.WriteLine("  GUI MODE");
-            Console.WriteLine("  ========");
-            Console.WriteLine("      Normal:      GHost.exe gui");
-            Console.WriteLine();
-            Console.WriteLine("  SERVICE MODE");
-            Console.WriteLine("  ============");
-            Console.WriteLine("      Install:     GHost.exe service install");
-            Console.WriteLine("      Uninstall:   GHost.exe service uninstall");
-            Console.WriteLine();
-            Console.WriteLine("      Start:       NET START GHost");
-            Console.WriteLine("      Stop:        NET STOP GHost");
-            Console.WriteLine();
-            Console.WriteLine("      Pause:       NET PAUSE GHost");
-            Console.WriteLine("      Resume:      NET CONTINUE GHost");
-            Console.WriteLine();
-            Console.WriteLine("Hit a key to quit");
-            Console.ReadKey();
+            new Classes.FixedEvent("shutdown");
         }
     }
 }

@@ -20,7 +20,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMLib", "RMLib\RMLib.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RMLibUI", "RMLibUI\RMLibUI.csproj", "{01C2C32E-3FC5-4241-9725-D84AF6620D78}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RloginClient", "RloginClient\RloginClient.csproj", "{F2C7C688-058D-47E7-9721-7F8866B05E5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RloginClient", "RloginClient\RloginClient.csproj", "{F2C7C688-058D-47E7-9721-7F8866B05E5B}"
 	ProjectSection(ProjectDependencies) = postProject
 		{C57F0D98-F290-42C1-97BD-CD85B47A2FB4} = {C57F0D98-F290-42C1-97BD-CD85B47A2FB4}
 	EndProjectSection

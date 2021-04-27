@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "GHost2": {
+      "commandName": "Project",
+      "commandLineArgs": "console"
+    }
+  }
+}

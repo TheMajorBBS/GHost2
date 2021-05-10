@@ -2,7 +2,9 @@
   "profiles": {
     "GHost2": {
       "commandName": "Project",
-      "commandLineArgs": "console"
+      "remoteDebugEnabled": false,
+      "remoteDebugMachine": "crash-dummy",
+      "authenticationMode": "None"
     }
   }
 }

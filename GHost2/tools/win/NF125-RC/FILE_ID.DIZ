@@ -1,10 +1,10 @@
-NetFoss 1.24 Release Candidate (Sep. 2020)
+NetFoss 1.25-Release Candidate March 14, 2021
 ---------------------------------------------
 Fast FOSSIL driver for Windows (x86 & x64):
 Allows DOS BBS software communications over
 TCP/IP using Telnet. Compatible with Serial
 COM ports and virtual modems. The NFU utility
-allows a DOS BBS to spawn DOS or Win32 doors.
+allows a DOS BBS to spawn Win32 doors.
 * Includes Open Source Net2BBS Telnet Server.
 Freeware from PC Micro - https://pcmicro.com
 ---------------------------------------------

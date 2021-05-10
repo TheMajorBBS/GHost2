@@ -108,8 +108,6 @@ namespace MajorBBS.GHost.Applications
         private void HandleQuit(object sender, EventArgs e)
         {
             _GHost.Stop();
-            _GHost.Dispose();
-            Close();
             Application.Exit();
         }
 
@@ -138,6 +136,7 @@ namespace MajorBBS.GHost.Applications
                     break;
             }
         }
+
         private void StatusText(string message, Color foreColour, bool prefixWithTime = true)
         {
             if (this.InvokeRequired)
@@ -146,23 +145,29 @@ namespace MajorBBS.GHost.Applications
             }
             else
             {
-
-                if (prefixWithTime)
+                try
                 {
-                    string Time = DateTime.Now.ToString(Config.Instance.TimeFormatUI) + "  ";
-                    rtxtLog.SelectionHangingIndent = Time.Length * _CharWidth;
-                    rtxtLog.ForeColor = Color.LightGray;
-                    rtxtLog.AppendText(Time);
-                }
-                else
-                {
-                    rtxtLog.SelectionHangingIndent = 0;
-                }
+                    if (prefixWithTime)
+                    {
+                        string Time = DateTime.Now.ToString(Config.Instance.TimeFormatUI) + "  ";
+                        rtxtLog.SelectionHangingIndent = Time.Length * _CharWidth;
+                        rtxtLog.SelectionColor = Color.LightGray;
+                        rtxtLog.AppendText(Time);
+                    }
+                    else
+                    {
+                        rtxtLog.SelectionHangingIndent = 0;
+                    }
 
-                rtxtLog.ForeColor = foreColour;
-                rtxtLog.AppendText(message + "\r\n");
-                rtxtLog.SelectionStart = rtxtLog.Text.Length;
-                rtxtLog.ScrollToCaret();
+                    rtxtLog.SelectionColor = foreColour;
+                    rtxtLog.AppendText(message + "\r\n");
+                    rtxtLog.SelectionStart = rtxtLog.Text.Length;
+                    rtxtLog.ScrollToCaret();
+                }
+                catch(Exception e)
+                {
+                    // should we log we failed to log?
+                }
             }
         }
 
@@ -219,31 +224,7 @@ namespace MajorBBS.GHost.Applications
                 else if (e.EventType == NodeEventType.LogOn)
                 {
                     UpdateButtonsAndTrayIcon();
-
-                    //// Add history item
-                    //ListViewItem LVIHistory = new ListViewItem(e.NodeInfo.Node.ToString());
-                    //LVIHistory.SubItems.Add(e.NodeInfo.ConnectionType.ToString());
-                    //LVIHistory.SubItems.Add(e.NodeInfo.Connection.GetRemoteIP());
-                    //LVIHistory.SubItems.Add(e.NodeInfo.User.Alias);
-                    //LVIHistory.SubItems.Add(DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToLongTimeString());
-                    //lvHistory.Items.Insert(0, LVIHistory);
-
-                    // Keep a counter for number of connections
-                    //switch (e.NodeInfo.ConnectionType)
-                    //{
-                    //    case ConnectionType.RLogin:
-                    //        lblRLoginCount.Text = (Convert.ToInt32(lblRLoginCount.Text) + 1).ToString();
-                    //        break;
-                    //}
-
                 }
-
-                // Update status
-                //ListViewItem LVI = lvNodes.Items[e.NodeInfo.Node - Config.Instance.FirstNode];
-                //LVI.SubItems[1].Text = (e.EventType == NodeEventType.LogOff ? "" : e.NodeInfo.ConnectionType.ToString());
-                //LVI.SubItems[2].Text = (e.EventType == NodeEventType.LogOff ? "" : e.NodeInfo.Connection.GetRemoteIP());
-                //LVI.SubItems[3].Text = (e.EventType == NodeEventType.LogOff ? "" : e.NodeInfo.User.Alias);
-                //LVI.SubItems[4].Text = (e.EventType == NodeEventType.LogOff ? "Waiting for a caller..." : e.Status);
             }
         }
         private void GHost_StatusChangeEvent(object sender, StatusEventArgs e)

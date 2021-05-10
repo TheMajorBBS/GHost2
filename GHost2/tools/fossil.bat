@@ -11,7 +11,7 @@ goto end
 
 rem NTVDM
 :NetFoss
-G:\tools\win\nf.bat %1 %2 %3 %4 %5 %6 %7 %8 %9
+G:\tools\win\nf125-rc\nf.bat %1 %2 %3 %4 %5 %6 %7 %8 %9
 goto end
 
 :end

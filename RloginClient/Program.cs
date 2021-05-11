@@ -4,11 +4,31 @@
  */
 using RandM.RMLib;
 using System;
+using System.IO;
+using System.Runtime.InteropServices;
+using System.Text;
 
 namespace MajorBBS.GHost
 {
     class RloginClientSocket
     {
+        private const int STD_OUTPUT_HANDLE = -11;
+        private const uint ENABLE_VIRTUAL_TERMINAL_PROCESSING = 0x0004;
+        private const uint DISABLE_NEWLINE_AUTO_RETURN = 0x0008;
+
+        [DllImport("kernel32.dll")]
+        private static extern bool GetConsoleMode(IntPtr hConsoleHandle, out uint lpMode);
+
+        [DllImport("kernel32.dll")]
+        private static extern bool SetConsoleMode(IntPtr hConsoleHandle, uint dwMode);
+
+        [DllImport("kernel32.dll", SetLastError = true)]
+        private static extern IntPtr GetStdHandle(int nStdHandle);
+
+        [DllImport("kernel32.dll")]
+        public static extern uint GetLastError();
+
+
         /// <summary>
         /// This routine repeatedly copies a string message into a byte array until filled.
         /// </summary>
@@ -66,9 +86,31 @@ namespace MajorBBS.GHost
 
             Console.SetWindowSize(80, 25);
             Console.SetBufferSize(80, 25);
-            Console.OpenStandardOutput();
+
+            var stdOut = Console.OpenStandardOutput();
+            var con = new StreamWriter(stdOut, RMEncoding.Ansi);
+            con.AutoFlush = true;
+            Console.SetOut(con);
+            
+            var iStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+            if (!GetConsoleMode(iStdOut, out uint outConsoleMode))
+            {
+                Console.WriteLine("failed to get output console mode");
+                Console.ReadKey();
+                return;
+            }
+
+            outConsoleMode |= ENABLE_VIRTUAL_TERMINAL_PROCESSING | DISABLE_NEWLINE_AUTO_RETURN;
+            if (!SetConsoleMode(iStdOut, outConsoleMode))
+            {
+                Console.WriteLine($"failed to set output console mode, error code: {GetLastError()}");
+                Console.ReadKey();
+                return;
+            }
+            
             Console.OpenStandardInput();
-            Console.WriteLine("RloginClient");
+
+            Console.WriteLine("\u001b[36mRloginClient\u001b[0m");
 
 
             // Parse the command line

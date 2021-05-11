@@ -1,16 +1,15 @@
- 
-                        -= NetFoss InterNET FOSSIL =-
+                         -= NetFoss InterNET FOSSIL =-
                                 for Windows
 
-                           Release Candidate 1.24
-                              September 1 2020
-                       Copyright (c) 2001-2020 PC Micro
+                         Version 1.25 Release Candidate
+                                March 14 2021
+                        Copyright (c) 2001-2021 PC Micro
 ____________________________________________________________________________
 
 
  NetFoss is a Windows FOSSIL driver providing TCP & Modem communications
  for DOS applications running under Windows 10/8/7/Vista/XP/2000 and the
- Windows Server family including x86 and x64 editions.
+ Windows Server family. Both x86 and x64 NTVDM editions are supported.
 
  A FOSSIL [Fido Opus Seadog Standard Interface Layer] is a driver which
  allows DOS based modem communication software to communicate through an
@@ -18,7 +17,8 @@ ____________________________________________________________________________
  
  Originally FOSSIL drivers were only designed for serial communications.
  NetFoss communicates with dialup Modems, Virtual Modems, or with TCP/IP
- using its own Telnet Communication engine, NetCom.
+ using its own Telnet Communication engine, NetCom. NetFoss can also
+ redirect DOS I/O based screen writes to the telnet or serial connection.
 
  Requirements
  ------------
@@ -35,16 +35,19 @@ ____________________________________________________________________________
  Options
  -------
 
+        * A third party Telnet / SSH Server can be used instead of Net2BBS.
+
         * "Core" editions of Windows Server are also supported.
 
-        * A third party Telnet Server can be used instead of Net2BBS.
-
-        * A Virtual Modem such as NetSerial can be used instead of
+        * A Virtual Modem such as NetSerial can be used in place of
           Net2BBS and NetCom.
 
-        * A Command Prompt Shell such as Doorway can be used for
-          remotely executing Console or DOS applications from a
-          FOSSIL. 
+        * A Command Prompt Shell such as Doorway can be used for remotely
+          executing Console or DOS applications from a FOSSIL. Or running
+          Non-Fossil and Non-DOS I/O Doors.
+
+        * A NetFoss driven BBS can also run DOS doors through DOSBox, by
+          passing the callers socket handle and command line to NFU.
 
  Features
  --------
@@ -60,14 +63,14 @@ ____________________________________________________________________________
         * DESQview emulation: redirects DESQview timeslice release
           functions to Windows. Very low CPU usage.
         * Enhances Zmodem transfer performance for BBS downloads.
-        * Allows DOS BBS software to spawn Win32 external doors.
+        * Allows DOS BBS software to spawn Win32/64 external doors.
 
  Table of Contents
  -----------------
 
         Introduction
-        Installing NTVDMx64
         Installing NetFoss
+        Installing NTVDMx64
         - Door32.sys Usage
         - Non-Door32.sys Usage
         List of compatible Telnet servers
@@ -124,8 +127,8 @@ ____________________________________________________________________________
  under Windows NTVDM (NT Virtual DOS Machine).
 
  NTVDM is included with all 32-bit (x86) Editions of Windows, and it is
-'also available for 64-bit (x64) editions of Windows from a third-party
- provider such as Columbia University.
+ also available for 64-bit (x64) editions of Windows from a third-party
+ provider at the University of Columbia web site.
 
  NetFoss supports TCP connections in addition to COM ports and Modems.
  TCP connections can be provided by an external server, such as the
@@ -151,48 +154,6 @@ ____________________________________________________________________________
 
 ____________________________________________________________________________
 
- Installing NTVDMx64
- -------------------
-
- While 32-bit editions of Windows include the "NT Virtual DOS Machine"
- which allows DOS applications to run in emulation mode, Microsoft
- removed the NTVDM feature from 64-bit editions of Windows, so it will
- need to be manually installed.
-
- NTVDMx64 is a patched version of Microsoft's NTVDM, for 64-bit Windows.
- It is based on leaked Windows 2000 source code, which has been updated
- by the OpenNT Project and includes modern build tools. A programmer
- known as Leacher1337 has ported it to support 64-bit Windows by creating
- code-injection loaders which convert the structures back and forth
- without altering the protected Windows system files.
-
- NTVDMx64 an open source project on Github: 
- https://github.com/leecher1337/ntvdmx64
-
- The full binaries and installer can be downloaded from the University
- of Columbia here: http://www.columbia.edu/~em36/ntvdmx64.html
-
- Before installing NTVDMx64 on Windows 10, it is important to disable
- Windows Defender "SmartScreen" and if you use Microsoft Edge to download
- it you will also need to disable "SmartScreen for MicroSoft Edge".
- These can both be disabled by clicking on:
-   Settings> Update and Security> Windows Security> App & Browser Control  
-
- Antivirus software should also be disabled during the installation, and
- if your Computer's BIOS has an option called "Secure Boot" then this
- must also be disabled in order for NTVDMx64 to function.
-
- If you encounter issues installing NTVDMx64, you can open a support
- ticket here on the Github page. A recent sysop encountered install
- issues and was assisted here:
- https://github.com/leecher1337/ntvdmx64/issues/101
-  
- Once NTVDMx64 is installed on your 64-bit Windows, you can install
- the NETFOS64.COM/NETFOS64.DLL files in place of the standard files
- (NETFOSS.COM/NETFOSS.DLL) which only support 32-bit Windows.
-
-____________________________________________________________________________
-
  Installing NetFoss
  ------------------
 
@@ -202,10 +163,12 @@ ____________________________________________________________________________
  A 32-bit edition of Windows is reccomended for maximum performance, since
  they include Microsoft's NTVDM (NT Virtual DOS Machine), which allows DOS
  software to run under Windows by swiching the CPU into "virtual 8086 mode"
- to simulate the 8086's real mode at the processor level.
+ to simulate the 8086's real mode at the processor level rather then using
+ software CPU emulation. For this reason a native 32-bit edition of Windows
+ will perform DOS emulation faster then a native 64-bit edition can.
 
  A 64-bit edition of Windows requires installing a third-party NTVDMx64,
- a port of the Microsoft NTVDM based on leaked Windows 2000 source code. 
+ a port of the Microsoft NTVDM (based on leaked Windows 2000 source code). 
  See the section below, titled "Installing NTVDMx64".
 
  When using Windows 10 you MUST configure the NTVDM Command Prompt console
@@ -220,15 +183,15 @@ ____________________________________________________________________________
 
  Place the following files into a directory such as c:\netfoss
 
- NF.BAT           A batch file used to load/unload NetFoss.
- NFU.EXE          NetFoss Utilties for running DOOR32 doors.
  ANSI.COM         ANSI emulation driver for local use.
+ NF.BAT           A batch file used to load/unload NetFoss.
  NETFOSS.COM      NetFoss Win32 FOSSIL TSR Interrupt handler.
  NETFOS64.COM     NetFoss Win64 FOSSIL TSR Interrupt handler. 
  NETFOSS.DLL      NetFoss Win32 FOSSIL Virtual Device Driver.
  NETFOS64.DLL     NetFoss Win64 FOSSIL Virtual Device Driver.
  NETCOM.EXE       NetCom Telnet Communication Engine for NetFoss.
- NET2BBS.ZIP      Net2BBS 1.18 Telnet Server package
+ NET2BBS.ZIP      Net2BBS Telnet Server package
+ NFU.EXE          NetFoss Utilties for running DOS & Windows doors.
 
  If you wish to use the Net2BBS Telnet Server, then unzip NET2BBS.ZIP
  archive into the same folder. This archive contains these files:
@@ -247,18 +210,22 @@ ____________________________________________________________________________
  NFU.TXT          The NetFoss Utilities for DOOR32 and DOS doors.
  FOSSIL.TXT       Technical Reference: FOSSIL implementation and use.
  FOSSIL.CHT       Technical Reference: FOSSIL command chart.
- NET2SRC.ZIP      The MASM32 Source Code for Net2BBS/Net2Mon/NetSpy.
-
+ [NET2SRC.ZIP]    The MASM32 Source Code for Net2BBS/Net2Mon/NetSpy.
+                  This file is not included in release candidate (RC).
 
  1. NETFOSS.DLL installation:
 
  ************************************************************************
  *** IMPORTANT *** When using Windows Vista or a later version of 32-bit
- (x86) Windows such as Windows 10/8/7,  you must copy NETFOSS.DLL to the
+ (x86) Windows such as Windows 10/8/7,  YOU MUST COPY NETFOSS.DLL to the
  \windows\system32\ directory.
  To do so, open an "Administrator Command Prompt" and enter the following
  command line:
                copy c:\netfoss\netfoss.dll c:\windows\system32
+*************************************************************************
+ If you are upgrading from an older version of NetFoss, be sure to copy
+ the new NETFOSS.DLL over the old one located in the system32 folder.
+*************************************************************************
 
  To open an Administrator Command Prompt in these versions of Windows,
  right-click on a "Command Prompt" icon and select "Run as Administrator".
@@ -269,7 +236,6 @@ ____________________________________________________________________________
  in the Windows %Path%. 
  To view which directories are in the Windows %Path%, open a Command Prompt
  and type "set path".
-*************************************************************************
 
 
  2. NET2BBS.INI Configuration:
@@ -288,9 +254,10 @@ ____________________________________________________________________________
  command line. (See section below for details on this).
 
  ********************************************************************
- *** IMPORTANT *** If your BBS is DOS based, you will need to make an
- additional change to your NF.BAT file as shown in the Non-DOOR32.SYS
- mode section below.
+ *** IMPORTANT *** If your BBS software is DOS based, you will need to
+ make an additional change to your NF.BAT file as shown in the
+ Non-DOOR32.SYS  mode section below. This also applys to Mystic BBS
+ for Windows.
  ********************************************************************
 
 
@@ -331,7 +298,8 @@ ____________________________________________________________________________
  to 256 nodes, and the Net2BBS Telnet Server also supports up to 256
  nodes.
 
- NetFoss can function in either "Telnet Mode", or "COM port Mode".
+ NetFoss can function in "Telnet Mode", or "COM port Mode". It can
+ also function in DOS I/O mode, which redirects DOS input and output.
 
  When used in Telnet mode, NetFoss accepts any COM port value up to
  4096, and the same COM port value can be used on all nodes, allowing
@@ -340,21 +308,88 @@ ____________________________________________________________________________
  set all nodes to use the same FOSSIL port, such as COM1. NetFoss will
  ignore the COM port number that it is passed with an INT 14h call.
 
- When used in Telnet mode, NetFoss requires that each node use a
- unique WinSock handle. When used in COM port mode, NetFoss requires
- that each node use a unique COM port value.
+ NetFoss requires that each node use a unique WinSock handle when used
+ in telnet Mode. When used in COM port mode, NetFoss requires that each
+ node use a unique COM port value.
 
- If You are using DOS based BBS software, skip the next chapter and
- continue at the Non-Door32.SYS Section further below.
+____________________________________________________________________________
+
+ Installing NTVDMx64
+ -------------------
+
+ Only 32-bit editions of Windows include the "NT Virtual DOS Machine"
+ known as NTVDM, which allows DOS applications to run in emulation mode.
+ Microsoft did not included NTVDM in their 64-bit editions of Windows.
+
+ NTVDMx64 is a patched version of Microsoft's NTVDM, for 64-bit Windows.
+ It is based on leaked Windows 2000 source code, which was updated by
+ by the OpenNT Project and includes modern build tools. A programmer
+ known as Leacher1337 has ported it to support 64-bit Windows by creating
+ code-injection loaders which convert the 32-bit and 64-bit structures
+ back and forth without altering the protected Windows system files.
+
+ NTVDMx64 an open source project on Github: 
+ https://github.com/leecher1337/ntvdmx64
+
+ The full binaries and installer can be downloaded from the University
+ of Columbia here: http://www.columbia.edu/~em36/ntvdmx64.html
+ The current version is dated January 7, 2021
+
+ Before installing NTVDMx64 on Windows 10, it is important to disable
+ Windows Defender "SmartScreen" and if you use Microsoft Edge to download
+ it you will also need to disable "SmartScreen for MicroSoft Edge".
+ These can both be disabled by clicking on:
+ * Settings> Update and Security> Windows Security> App & Browser Control  
+
+ Antivirus software should also be disabled during the installation, and
+ if your Computer's BIOS has an option called "Secure Boot" then this
+ must also be disabled in order for NTVDMx64 to function.
+
+ If you encounter issues installing NTVDMx64, you can open a support
+ ticket on the Github page. A recent sysop encountered install issues
+ and was assisted here:
+ https://github.com/leecher1337/ntvdmx64/issues/101
+
+ Since then, this issue was resolved in the October 4, 2020 release
+ of NTVDMx64. 
+  
+ Once NTVDMx64 is installed on your 64-bit Windows, you can install
+ the NETFOS64.COM/NETFOS64.DLL files in place of the standard files
+ (NETFOSS.COM/NETFOSS.DLL) which only support 32-bit Windows.
+ Other utilities including Net2BSS, NetCom, NetSpy and NFU all support
+ both 32-bit and 64-bit Windows.
+
+ To Install NTVDMx64, extract the desired language .7-zip Archive into
+ a folder on your computer such as c:\NTVDMX64 and right-click on the
+ install.bat file and select "Run as Anministrator". The installer will
+ ask if you wish to install support for 16-bit Windows applications,
+ which you can answer "No" to and it will just install support for
+ DOS applications.
+
+ You can optionally install the HAXM edition of NTVDMX64, which supports
+ Intel Virtualization Technology (VT-x) hardware accelleration so it is
+ significally faster in textmode.
+ HAXM requires a modern (2018 model or later) Intel CPU with VT-x.
+ Using HAXM, NTDVMx64 will run textmode applications nearly as fast as
+ Microsoft's original NTVDM for 32-bit Windows editions.
+
+ NTVDMx64 not only supports DOS applications, it also includes WOW32
+ (Windows on Windows) which allows running legacy 16-bit Windows programs
+ written for Windows 3.x or earlier. Note that when using the HAXM edition
+ of NTVDMx64, the WOW32 feature is disabled. If WOW32 support is needed,
+ a better solution is available here: https://github.com/otya128/winevdm
 
 ____________________________________________________________________________
 
  DOOR32.SYS Usage
  ----------------
 
- DOOR32.SYS is a drop file format for 32-bit BBS software or doors.
- A drop file is created by BBS software to pass information about the
- active connection to an external program that is being spawned.
+ If you plan to use DOS based based BBS software, you can skip over this
+ chapter.
+
+ DOOR32.SYS is a drop file format for Windows (or Linux) BBS software and
+ doors. A drop file is created by BBS software to pass information about
+ the active connection to a "door" (external program that the BBS spawns).
 
  NetFoss supports reading DOOR32.SYS dropfiles created by a Windows
  BBS software, as well as writing it's own DOOR32.SYS drop files to
@@ -363,22 +398,24 @@ ____________________________________________________________________________
  DOOR32.SYS For Windows BBS Software:
  ====================================
 
- When using NetFoss with a Windows BBS (such as EleBBS for example)
- which can create both a DOOR32.SYS and a standard dropfile such as
- DOOR.SYS it is NOT required to pass the node number or telnet socket
- handle to either NetFoss or NetCom. Instead they will be read from the
- DOOR32.SYS dropfile that the BBS software create in the current nodes
- directory before executing the NF.BAT batch file.
+ When using NetFoss with a Windows BBS which can create both a DOOR32.SYS
+ and a standard DOS style dropfile such as DOOR.SYS it is NOT required to
+ pass the node number or telnet socket handle to either NetFoss or NetCom.
+ Instead they can be read from the DOOR32.SYS dropfile that the BBS software
+ creates in the current nodes directory before executing the NF.BAT batch file.
 
- Some Windows BBS programs which support DOOR32.SYS dropfiles can not
- create a standard drop file at the same time (i.e.: MysticBBS 1.07.03
- and Synchronet 3.10). In this case DOOR32.SYS mode should not be used.
- * Note: Current versions of Mystic and Syncronet do support this now.
+ However in the case of using Mystic BBS it's generally simpler to pass the
+ node number and socket handle on the command line, instead of allowing
+ NetFoss to read the DOOR32.SYS file since since Mystic does not make the
+ node temp directory (where dropfiles are placed) the *current directory*,
+ so NetFoss will not see it unless it is relocated or a CD command is used
+ to change the current directory.
+
 
  You will need to edit the door command line for each of your doors.
  A typical type-7 command line in EleBBS would look like this:
 
- C:\BBS\NF.BAT c:\bbs\lord\start.bat *N
+ C:\NETFOSS\NF.BAT c:\bbs\lord\start.bat *N
  ^^^^^^^^^^^^^ ^^^^^^^^^^^^^^^^^^^^^^^^
     |                     |
  This loads NetFoss.     This is the batch file that runs a door.
@@ -391,8 +428,12 @@ ____________________________________________________________________________
  In the above example EleBBS is passing the *N macro to the doors batch
  file, and the *N is replaced with the current node number by EleBBS.
 
+
  DOOR32.SYS for DOS BBS Software:
  ================================
+
+ DOS BBS software can use a DOOR32.SYS file to spawn an external Windows
+ program, known as Win32 door (or DOOR32 door).
 
  NetFoss includes a utility called NFU.EXE, which among other features
  allows DOS BBS Software to spawn Win32 software including doors that
@@ -433,7 +474,7 @@ ____________________________________________________________________________
 
  NetSerial is available to BBS Sysops at a discounted price of $25 USD.
  ----------------------------------------------------------------------
- To purchase order a license go to: https://pcmicro.com/netserial/sysop
+ To purchase a license go to: https://pcmicro.com/netserial/sysop
  To download a 30 day evaluation go to: https://pcmicro.com/netserial
 
  NetSerial is designed to work with NetFoss - and also works with DOS
@@ -462,9 +503,12 @@ ____________________________________________________________________________
 
  In order for NetFoss to work in a Non-DOOR32.SYS environment, you will
  need to change the third line to "c:\bbs\netfoss %1" in order to pass
- the node number to NETFOSS.COM.
+ the node number to NETFOSS.COM. This should be done if you are using
+ DOS based BBS software, or Windows based BBS software which does not
+ create a DOOR32.SYS drop file in the *current directory*, such as
+ Mystic BBS.
 
- Note: This change will still allow a DOS BBS to run DOOR32 doors.
+ Note: This change will still allow a DOS BBS to run Windows DOOR32 doors.
 
  Next you will need to configure your telnet server (or a Win32 BBS) to
  pass both the node number, and the WinSock handle to the NF.BAT file,
@@ -585,24 +629,25 @@ ____________________________________________________________________________
      MainView=1
      NodeLines=25
      Log=telnet.log
-     KillList=kill.txt
-     KillMsg=You are not welcome here.
-     KillMsgFile=goaway.ans
+     Blacklist=blacklist.txt
+     BlacklistMsg=You are not welcome here.
+     BlacklistANS=goaway.ans
      Editor=notepad.exe
      Semaphore=wait.sem
      Resolve=1
      ResolveMsg=o Net2BBS - Resolving your IP Address...
      ShowHost=1
-     Blocking=0
      AntiScanner=1
      AntiHammer=1
      CacheTime=0
      WhiteList=127.0.0.1
      DNSBL=zz.countries.nerd.dk
-     BlockCC=156,643,392,804    ; 156=China 643=Russia 392=Japan 804=Ukraine 
+     BlockCC=156,643,392,804     156=China 643=Russia 392=Japan 804=Ukraine 
      DNSBL2=xbl.spamhaus.org
      ;DNSBL3=dnsbl.proxybl.org
      ;DNSBL4=bl.blocklist.de
+     GeoIPWeb=api.ipstack.com
+
 
  A Full description of each of these settings is listed in NET2BBS.TXT.
  Net2BBS.INI contains a "Command=" line, which spawns the NF.BAT batch file
@@ -689,9 +734,9 @@ ____________________________________________________________________________
  ----------------
 
  EzyCom is a RemoteAccess clone which was updated until 2015, at which time
- the the current developer removed version 3.0 from distribution and vanished.
- The final version v3.00 is no longer available here:
- http://www.ezycom-bbs.com/files.htm
+ the the current developer suffered a hard drive crash and did not have the
+ source code backed up.
+ The final version is v3.00, is availale at  http://www.ezycom-bbs.com
 
  Here is how to install EzyCom with NetFoss:
 
@@ -857,10 +902,10 @@ ____________________________________________________________________________
 
 ____________________________________________________________________________
 
- Iniquity BBS Win32
- ------------------
+ Iniquity BBS
+ ------------
 
- Iniquity was another scene-based BBS based on WWIV source code. The original
+ Iniquity was scene-based BBS based on WWIV source code. The original
  auther Michael Frikner (now a technical director for Epic Games) sold the
  source to Mike Pike in 1996, and and little happened until after the souce
  code was leaked in 1997. Comatose and Dedchylde formed a team that released
@@ -870,32 +915,25 @@ ____________________________________________________________________________
 
  Here is how to configure Iniquity for telnet:
 
- 1) Start by installing version 2.0 (IQ20.ZIP), then update it using the 2.20A
- update (IQ220AJP.ZIP) available from http://www.demonic.net/files.php?id=14
+ 1) Installing version 2.0 (IQ20.ZIP), then update it using the 2.20A update
+    (IQ220AJP.ZIP) available from http://www.demonic.net/files.php?id=14
 
- 2) Before configuring the modems in Iniquity to use a fossil driver, you must
- load a fossil driver first. You could load NetFoss simply by typing
- "netfoss /n200" for example. The node number really doesn't matter.
+ 2) Run "Iniqity.exe Node 1 Modem local", and under "Modem configuration", set
+    the "Com device" setting to "Fossil", exit and save configuration. Then
+    repeat this step for each additional node number.
 
- 3) Run "Iniqity.exe Node 1 Modem", and under "Modem configuration", set the
- "Com device" setting to "Fossil", exit and save configuration. Then
- repeat this step for each additional node number.
-
- 4) Unload the fossil driver that was loaded in step 2. For example:
-    "netfoss /u"
-
- 5) Create a batch file in the Iniquity directory called RUNIQ.BAT
-       cd\iq
-       iniquity.exe node %1 baud 115200 quit
+ 3) Create a batch file in the Iniquity directory called RUNIQ.BAT
+      cd\iq
+      iniquity.exe node %1 baud 115200 quit
  
- 6) Edit the NF.BAT file, to add a " %1" to the end of the netfoss.com line,
+ 4) Edit the NF.BAT file, to add a " %1" to the end of the netfoss.com line,
     as described in the batch file itself.
 
- 7) Edit your NET2BBS.INI file with the following lines:
+ 5) Edit your NET2BBS.INI file with the following lines:
        Command=c:\netfoss\nf.bat /n*N /h*H c:\iq\iq.bat *N
        StartPath=c:\iq
 
- 8) Run NET2BBS.EXE, and it is ready to accept telnet connections.
+ 6) Run NET2BBS.EXE, and it is ready to accept telnet connections.
 
 ____________________________________________________________________________
 
@@ -1255,8 +1293,10 @@ ____________________________________________________________________________
  ---------------------
 
  Searchlight was the first and only BBS to display RIP Graphics on the local
- side. Version 5.0x for Windows included built-in telnet support, but it is
- very unstable, resulting in lockups and crashes. The DOS version of Searchlight
+ side. It was created by Frank LaRosa, and later sold to Telegrafix, the
+ makers of RIPtel and RIPterm, which went out of business in the late 90's.
+ Version 5.0x for Windows included built-in telnet support, but it was
+ unstable, resulting in lockups and crashes. The DOS version of Searchlight
  is stable and performs faster then the native Windows version when run under
  NetFoss.
 
@@ -1264,13 +1304,16 @@ ____________________________________________________________________________
     correction by Robert Wolf.
 
  1) Download Searchlight 5.10 for DOS (SLBBS510.ZIP), from
-    http://www.slbbs.com/files/packages/slbbs510.exe
+    http://www.slbbs.com/files/packages/slbbs510.exe 
 
-    If the above site is down, append the full URL to this:
+    *** Note: On July 8, 2020 Darryl Hunt, the owner of slbbs.com passed
+    away after providing support for Searchlight for over 10 years.
+    The file can still be downloaded from the Archive.org Time Machine, by
+    appending the URL to this:
     https://web.archive.org/web/20051108172905/{place full above URL here}
 
     To find additional information and codes, check the file listing here:
-https://web.archive.org/web/20160810014533/http://slbbs.com/files/packages.html  
+    https://web.archive.org/web/20160810014533/http://slbbs.com/files/packages.html  
     
  2)  Install Searchlight in c:\slbbs\ 
 
@@ -1351,7 +1394,8 @@ ____________________________________________________________________________
 
  SpitFire BBS was not designed support a FOSSIL driver, so to support
  telnet it must be used with a Virtual COM port redirector such as
- NetSerial. 
+ NetSerial. NetFoss can be used to run doors under it by using a
+ third-party  
 
  The other limitation is that normally when Spitfire runs a door,
  once the door exits, Windows NT (including 10/8/7/Vista/XP/2K) lowers
@@ -1363,16 +1407,18 @@ ____________________________________________________________________________
 
  Thanks to Jim Johnson for providing this workaround:
 
- There is a free utility for SpitFire called "SFmenu Extended" which
- allows SpitFire to run doors from a shell which returns to Spitfire
- using an errorlevel. This prevents Spitfire from getting confused
- about the Carrier Detect signal. Download the file sfmenuext.zip and
- extract the 4 batch files it contains into your SpitFire directory,
- overwriting the default batchfiles included with Spitfire. Then when
- you press "K" from The SpitFire main menu, you will get the "sfmenu
- extended" which allows you to add an unlimited number of doors to
- it. There is separate documentation with sfmenuext.zip that will
- instruct you on how to set it up.
+ There is a free utility for SpitFire called "SFmenu Extended" v1.5
+ which allows SpitFire to run doors from a shell which returns to
+ Spitfire using an errorlevel. This prevents Spitfire from getting
+ confused about the Carrier Detect signal. Download the file
+ sfmnuext.zip (SPITFIRE Menu Extension v1.5), and extract the 4 batch
+ files it contains into the SpitFire directory, overwriting the default
+ batchfiles included with Spitfire. Then when you press "K" from
+ The SpitFire main menu, you will get the "sfmenu extended" which
+ allows you to add an unlimited number of doors to it. There is
+ separate documentation with sfmnuext.zip that will instruct you on
+ how to set it up. NetFoss should be set to COM port Mode when running
+ doors under NetSerial.
 
 ____________________________________________________________________________
 
@@ -1684,7 +1730,7 @@ ____________________________________________________________________________
  WWIV 5.30 (Windows)
 ====================
  
- WWIV 5.30 and is a Windows BBS which includes a modified version of the
+ WWIV 5.5 and is a Windows BBS which includes a modified version of the
  Synchronet FOSSIL driver to run doors, and a modified version of the
  EleBBS telnet server to accept connections.
 
@@ -1776,6 +1822,9 @@ ____________________________________________________________________________
  Notes on specific BBS doors:
  ============================
 
+ There are hundreds of BBS doors, but the few listed below are ones that
+ are rather difficult to install. 
+
  * The Pit 
 
        Version 4.17 (as well as 4.16 and 4.15) has a bug which
@@ -1790,6 +1839,7 @@ ____________________________________________________________________________
 
  * Lunatix
 
+       This door typically runs very slowly using a fossil driver, but
        The final version 4.3a runs very fast under NetFoss due to NTVDM
        performance enhancements that NetFoss provides.
 
@@ -1807,29 +1857,27 @@ ____________________________________________________________________________
 
  * Fresh Water Fishing
 
-       Always worked under XP, but previously failed to 'reel in' under Windows
-       Vista and later versions of Windows with older versions of NetFoss.
-       This was resolved in later versions of NetFoss.
+       FWF always worked under XP, but previously failed to 'reel in' under
+       Windows Vista and later versions of Windows with older versions of
+       NetFoss. The issue was worked around in later versions of NetFoss.
 
  * NetRunner
 
-    The doorkit that NetRunner was built with uses an undocumented
-    method of enabling fossil support, by specifying "PORT:F:x" where
-    x is the COM port number to be used. This method also works on
-    other doors that use the "CKit Door Library".
-    Here is an example batch file for using a fossil on COM1:
-
+      This classic door has a legal key generator (NETRUNKG.ZIP) released
+      by the author Rob Jacob in 2004 which is available from BBS Archives.  
+      The doorkit that NetRunner was built with uses an undocumented method
+      of enabling fossil support, by specifying "PORT:F:x" where x is the
+      COM port number to be used. This method also works on other doors
+      that use the "CKit Door Library".
+      Here is an example batch file for using a fossil on COM1:
           cd \bbs\netrun
           netrun.exe C:\bbs\node1\DOOR.SYS PORT:F:1
-
 
  * Caribbeen Contraband
 
     This door also uses the "CKit Door Library" so you will need the
-    undocumented "PORT:F:x" where x is the COM port number to be used.
-   
+    undocumented "PORT:F:x" where x is the COM port number to be used.   
     Here is an example batch file for using a fossil on COM1:
-
           cd \bbs\carib
           carib28.exe C:\bbs\node1\DOOR.SYS PORT:F:1
 
@@ -1878,6 +1926,28 @@ ____________________________________________________________________________
     take an hour to complete so just let it run. Next edit RESOURCE.DAT
     to make sure that "System.Fossil yes" is set.
 
+ * Starship Galactica
+
+    This classic door game for WWIV is now freeware. John Dailey never
+    added support for modern BBS dropfiles or fossil driver support, so it's
+    a bit complicated to get it to run with other BBS software.
+    Download version 1.1 from JohnDaileySoftware.com, and create a batch file
+    such as this to run it using Doorway:
+       @ECHO Off
+       \netfoss\nfu c:\path_to_chain.txt /C /L
+       copy c:\path_to_chain.txt\chain.txt \doors\starship
+       cd\doors\starship
+       C:\doorway\doorway SYSF /V:D /P:C:\doors\starship\starship.exe chain.txt
+       erase chain.txt
+    This batch file does the following: Using NFU, the door.sys dropfile is
+    converted to a WWIV style chain.txt dropfile, with a "local mode" setting
+    so the COM port is set to COM0 and the baud rate is zero. Next the chain.txt
+    dropfile is copied to the starship folder, and then DoorWay is used to run
+    the door using SYSF mode, which tells Doorway to read the door.sys drop file
+    and to communicate using a Fossil driver, while it runs the door and passes
+    it the chain.txt drop file that NFU created. Once the door exits, the batch
+    file erases the chain.txt dropfile which is no longer needed.
+
  *Murder Motel
 
     Murder Motel was ported to the PC by Sheldon Pasciak in the late 80's
@@ -1894,15 +1964,25 @@ ____________________________________________________________________________
    that only supports DOS I/O communications. This runs great with
    NetFoss using DOS I/O Mode, as described in the "DOS I/O Redirection"
    section of this documentation.
-   In the 1990's Michael Wilson released rewrite which is FOSSIL aware,
-   and in  2004 Chris Martino also released a rewrite called FoodFite 2004.
+   In the 1990's Michael Wilson released rewrite which supports a Fossil
+   and in  2004 Chris Martino also released a rewrite called FoodFite 2004
+   which also has Fossil support.
 
- *ZChess
+ *ZChess 1.8F
 
    ZChess is known to generate high CPU usage when run under Windows.
    In the ZCHESS.CFG file, the option "Give up time slice" should be set
    to "=1" and it will greatly reduce the issue under NetFoss. With many
    other FOSSIL drivers ZChess creates 100% CPU usage under Windows.
+    
+ *Chess Magic
+
+  Chess Magic claims to support a fossil driver by passing a parameter
+  such as PORT:F:2 (for Fossil on COM2) after passing the dropfile
+  directory/filename in the cmagic.bat file, but due to bugs in the
+  game it will use a mixture of both Fossil and Serial commands so it
+  will only work properly if running NetFoss under NetSerial, or running
+  the door in local mode under Doorway. Tested with v4.96 and v4.16.
 
 
    If you encounter any doors that claim to support a FOSSIL driver
@@ -2740,9 +2820,9 @@ ____________________________________________________________________________
       When using a version of Windows newer then XP, the NETFOSS.DLL
       will need to be copied to c:\windows\system32\ 
 
-      64-bit editions of Windows don't support NTVDM (Virtual DOS Machine),
-      so they can not run DOS applications unless you run a 32-bit version
-      of Windows inside a Virtual Machine such as "XP Mode" or VMware.
+      64-bit editions of Windows don't come with NTVDM (Virtual DOS Machine),
+      so they can not run DOS applications unless you install NTVDMx64 from
+      a third-party site.
 
   Q:  Does NetFoss run under Windows 3.x, 95, 98, ME?
   A:  No. These versions of Windows do not offer true multitasking,
@@ -3192,7 +3272,7 @@ ___________________________________________________________________________
  Markus Feilen
  Christian Dirks
  Luis Silva
- Hawk Hubbard
+ Hawk Hubbard         aka Captain Hood
  Todd Yatzook         aka Maskreet
  Rudi Timmermans
  Kin Chan
@@ -3206,12 +3286,10 @@ ___________________________________________________________________________
  Rick Szajkowski 
  Ozz Nixon
  Tim Sweitzer
+ Shane O'Neill
+ Mike Dietrich
  
- A special thanks to Kin Chan for beta testing the new security features
- in Net2BBS 1.12, and to Todd Yatzook for beta testing the DOOR32 shelling
- from DOS BBS software in NetFoss 1.14. Also a big thanks to Ioram Sette
- for his considerable testing over the years.
-
+ 
 ____________________________________________________________________________
 
  Whats new:
@@ -3382,7 +3460,7 @@ ____________________________________________________________________________
                       allows a COM port to be passed a locked baud rate on
                       the command line, requested by Robert Wolfe.
 
-             1.0     Optimized all EXE/DLL for Pentium-4 and later CPU's.
+             1.0      Optimized all EXE/DLL for Pentium-4 and later CPU's.
                       Previous builds were optimized for Pentium-3.
                       Worked around an issue with NetFoss running with
                       NetSerial and FrontDoor, reported by T.J. McMillian.
@@ -3443,7 +3521,7 @@ ____________________________________________________________________________
                       To install Net2BBS as a Service from an Administrator
                       Command Prompt type: Net2Mon /instserv
 
-            1.10     This is a major update to NetFoss, which includes
+            1.10      This is a major update to NetFoss, which includes
                       several performance enhancements, and NetFoss now
                       allows remote keyboard input to be provided by an
                       external source, such as NetSpy. NetSpy is a DOS
@@ -3573,7 +3651,7 @@ ____________________________________________________________________________
                       The bot-detection feature adjusted to prevent false
                       positives.
 
-         1.19        This version is released in honor of Ray Gwinn's 75th
+         1.19         This version is released in honor of Ray Gwinn's 75th
                       Birthday. Ray wrote the X00 and SIO fossil drivers.
                       Added command line /T{Time Remaining} option for DOS
                       I/O redirection, to prevent user from staying in the
@@ -3597,7 +3675,7 @@ ____________________________________________________________________________
                       service to be uninstalled, reported by Vasya Pupkin.
                       Added feature to Net2BBS to optionally disconnect or
                       block clients connecting without ANSI support. Minor
-                      optimizations and enhacements to Net3BBS. Fixed input
+                      optimizations and enhacements to Net2BBS. Fixed input
                       issue in NetFoss.com, no changes to NetFoss.dll.
  
          1.20R        Net2BBS had 2 bugs, one of which could cause it to
@@ -3613,7 +3691,6 @@ ____________________________________________________________________________
 
            1.21       Added ANSI.COM to NetFoss package, a former version of
                       ANSI2FOS before fossil redirection code was added to it.
-
                       (The DOS I/O to fossil redirection code was moved to
                       NETFOSS.COM in version 1.18.)
                       Fixed an issue in Net2BBS's Anti-scanner routine which
@@ -3636,7 +3713,7 @@ ____________________________________________________________________________
           1.22R       A repack of 1.22 which includes a fixed NETFOSS.DLL to
                       resolve a "COM Port Mode" bug, preventing FrontDoor
                       from working. Thanks to Manuel Adorni for reporting it. 
-\
+
            1.23       A maintenence release to resolve a possible crash
                       issue under Windows XP due to DOS INT16h keyboard
                       input handling, reported by Tim Sweitzer and Vasya
@@ -3659,3 +3736,39 @@ ____________________________________________________________________________
                       to the IPstack interface (Reported by Gord Robert).
                       Net2BBS had an issue with the writing to the log.
                       Enhancements: Improved downloading speed. 
+
+            1.24      The previous 1.24-Release Canidate had no bugs reported
+                      in NetFoss itself, but two of the utilities did:
+                      ANSI.COM had issues with some ANSI codes which could
+                      cause it to become unstable, reported by Tom Swartz.
+                      NFU was not creating a proper DORINFO1.DEF drop file,
+                      and was unable to convert a RemoteAccess 2.62 door.sys
+                      file due to RA placing illegal zeros in it's door.sys,
+                      reported by C.G. Learn. These bugs have been fixed,
+                      and NFU has a new option to use the User's Handle as
+                      their Real Name in a door (requested by C.G Learn).
+                      Net2BBS now displays GeoIP provided City and State names
+                      in addition to the user's Country, and if the IPStack
+                      GeoIp site is down or disabled Net2BBS now automatically
+                      falls back to using the DNS-based GeoIP service From
+                      zz.nerds.dk instead. There was also an undocumented
+                      switch added to NetFoss.com (/F1) to force RIP support
+                      in doors that fail to detect RIP properly (requested
+                      by Hawk Hubbard).
+
+          1.25RC      It turned out that an undocumented NTVDM function used
+                      in versio 1.24 did not function properly on some CPU's,
+                      which is now resolved (Reported by Shane O'Neill).
+                      NetCom had an issue under Windows XP which could cause
+                      it to occasionaly hang after a DOS BBS exits (Reported
+                      by Mike Dietrich). NFU would  sometimes create the wrong
+                      dropfile type (Reported by Mike Dietrich). NFU now allows
+                      passing a socket handle to DOSBox without requiring a
+                      drop file (Requested by Shane O'Neil). NFU now allows
+                      changing drop files to use "Local Mode", to simplify
+                      running doors under Doorway that don't support a fossil
+                      driver. New performance optimizations were made to NetFoss
+                      for faster speed and less CPU usage. The Net2BBS Whitelist
+                      fuction had accidently been disabled in some previous
+                      versions, and is now reenabled. The "KillList=" option has
+                      been renamed "Blacklist=" (in Net2BBS.ini). 

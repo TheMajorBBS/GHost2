@@ -7,6 +7,7 @@
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <UseWindowsForms>true</UseWindowsForms>
     <ImportWindowsDesktopTargets>true</ImportWindowsDesktopTargets>
+    <Platforms>AnyCPU;x86;x64</Platforms>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>GHost.ico</ApplicationIcon>
@@ -14,11 +15,21 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <OutputPath>..\bin\Debug\</OutputPath>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutputPath>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutputPath>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <OutputPath>..\bin\Release\</OutputPath>
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <OutputPath>$(SolutionDir)bin\$(Configuration)\$(Platform)\</OutputPath>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="tools\dos\adf.exe" />
@@ -66,6 +77,8 @@
   <ItemGroup>
     <PackageReference Include="Core.System.Configuration.Install" Version="1.1.0" />
     <PackageReference Include="Core.System.ServiceProcess" Version="1.0.2" />
+    <PackageReference Include="Microsoft.PowerShell.SDK" Version="7.1.3" />
+    <PackageReference Include="System.Management.Automation" Version="7.1.3" />
     <PackageReference Include="System.ServiceProcess.ServiceController" Version="5.0.0" />
   </ItemGroup>
   <ItemGroup>
@@ -196,52 +209,49 @@
     <None Update="tools\fossil.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\ANSI.COM">
+    <None Update="tools\win\NF125-RC\ANSI.COM">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\FILE_ID.DIZ">
+    <None Update="tools\win\NF125-RC\FILE_ID.DIZ">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\FOSSIL.CHT">
+    <None Update="tools\win\NF125-RC\FOSSIL.CHT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\FOSSIL.TXT">
+    <None Update="tools\win\NF125-RC\FOSSIL.TXT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NET2BBS.ZIP">
+    <None Update="tools\win\NF125-RC\NET2BBS.ZIP">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NET2SRC.ZIP">
+    <None Update="tools\win\NF125-RC\NETCOM.EXE">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NETCOM.EXE">
+    <None Update="tools\win\NF125-RC\NETFOS64.COM">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NETFOS64.COM">
+    <None Update="tools\win\NF125-RC\NETFOS64.DLL">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NETFOS64.DLL">
+    <None Update="tools\win\NF125-RC\NETFOSS.COM">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NETFOSS.COM">
+    <None Update="tools\win\NF125-RC\NETFOSS.DLL">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NETFOSS.DLL">
+    <None Update="tools\win\NF125-RC\NETFOSS.TXT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NETFOSS.TXT">
+    <None Update="tools\win\NF125-RC\NF.BAT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NF.BAT">
+    <None Update="tools\win\NF125-RC\NF64.BAT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NF64.BAT">
+    <None Update="tools\win\NF125-RC\NFU.EXE">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF124-RC\NFU.EXE">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF124-RC\NFU.TXT">
+    <None Update="tools\win\NF125-RC\NFU.TXT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="_Release.cmd">
@@ -252,5 +262,6 @@
     <Folder Include="docs\" />
     <Folder Include="scorebrd\" />
     <Folder Include="tools\linux\" />
+    <Folder Include="tools\win\" />
   </ItemGroup>
 </Project>

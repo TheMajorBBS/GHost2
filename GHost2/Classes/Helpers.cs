@@ -73,9 +73,9 @@ namespace MajorBBS.GHost
                 }
                 else
                 {
-                    if (!File.Exists(StringUtils.PathCombine(Environment.SystemDirectory, "sbbsexec.dll")))
+                    if (!File.Exists(StringUtils.PathCombine(Environment.SystemDirectory, "netfoss.dll")))
                     {
-                        RMLog.Error("PLEASE COPY SBBSEXEC.DLL TO " + StringUtils.PathCombine(Environment.SystemDirectory, "sbbsexec.dll").ToUpper() + " IF YOU PLAN ON RUNNING DOS DOORS USING THE EMBEDDED SYNCHRONET FOSSIL");
+                        RMLog.Error("PLEASE COPY NETFOSS.DLL TO " + StringUtils.PathCombine(Environment.SystemDirectory, "netfoss.dll").ToUpper() + " IF YOU PLAN ON RUNNING DOS DOORS USING THE EMBEDDED SYNCHRONET FOSSIL");
                     }
                 }
             }

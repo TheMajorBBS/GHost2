@@ -271,7 +271,7 @@ namespace MajorBBS.GHost
                     condName = condition.Substring(1);
                 }
 
-                if (condName.ToLower() == userName)
+                if (condName.ToLower() == userName.ToLower())
                 {
                     // quit immediately if we find a user specified.
                     return isGrant;
@@ -300,6 +300,8 @@ namespace MajorBBS.GHost
                         .Replace("%node%", _ClientThread.NodeInfo.Node.ToString())
                         .Replace("%handle%", _ClientThread.NodeInfo.Connection.Handle.ToString())
                         .Replace("%nodepath%", StringUtils.ConvertToRelativePath(NodePath()))
+                        .Replace("%ghostnode%", _ClientThread.NodeInfo.Node.ToString())
+                        .Replace("%doornode%", _ClientThread.DoorNode.ToString())
                     : TranslateCLS(_ClientThread.NodeInfo.Door.Command);
         }
 
@@ -519,6 +521,7 @@ namespace MajorBBS.GHost
                 new KeyValuePair<string, string>("DORINFOx", StringUtils.ExtractShortPathName(StringUtils.PathCombine(nodePath, "dorinfo" + _ClientThread.NodeInfo.Node.ToString() + ".def"))),
                 new KeyValuePair<string, string>("DORINFO1", StringUtils.ExtractShortPathName(StringUtils.PathCombine(nodePath, "dorinfo1.def"))),
                 new KeyValuePair<string, string>("DORINFO", StringUtils.ExtractShortPathName(StringUtils.PathCombine(nodePath, "dorinfo.def"))),
+                new KeyValuePair<string, string>("CHAIN", StringUtils.ExtractShortPathName(StringUtils.PathCombine(nodePath, "chain.txt"))),
                 new KeyValuePair<string, string>("HANDLE", _ClientThread.NodeInfo.Connection.Handle.ToString()),
                 new KeyValuePair<string, string>("IPADDRESS", _ClientThread.NodeInfo.Connection.GetRemoteIP()),
                 new KeyValuePair<string, string>("MINUTESLEFT", _ClientThread.NodeInfo.MinutesLeft.ToString()),
@@ -527,6 +530,8 @@ namespace MajorBBS.GHost
                 new KeyValuePair<string, string>("SECONDSLEFT", _ClientThread.NodeInfo.SecondsLeft.ToString()),
                 new KeyValuePair<string, string>("SOCKETHANDLE", _ClientThread.NodeInfo.Connection.Handle.ToString()),
                 new KeyValuePair<string, string>("**USERNAME", _ClientThread.NodeInfo.User.Alias),
+                new KeyValuePair<string, string>("DOORNODE", _ClientThread.DoorNode.ToString()),
+                new KeyValuePair<string, string>("GHOSTNODE", _ClientThread.NodeInfo.Node.ToString()),
             };
             foreach (DictionaryEntry DE in _ClientThread.NodeInfo.User.AdditionalInfo)
             {

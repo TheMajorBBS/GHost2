@@ -181,6 +181,12 @@
     <None Update="logs\GHost.log">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="platforms\dosbox-nofoss.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="platforms\dosbox-x-nofoss.ini">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="platforms\dosbox-x.ini">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -209,49 +215,7 @@
     <None Update="tools\fossil.bat">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="tools\win\NF125-RC\ANSI.COM">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\FILE_ID.DIZ">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\FOSSIL.CHT">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\FOSSIL.TXT">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NET2BBS.ZIP">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NETCOM.EXE">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NETFOS64.COM">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NETFOS64.DLL">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NETFOSS.COM">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NETFOSS.DLL">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NETFOSS.TXT">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NF.BAT">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NF64.BAT">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NFU.EXE">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\win\NF125-RC\NFU.TXT">
+    <None Update="tools\win\NetFoss\NetFoss.BAT">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="_Release.cmd">
@@ -262,6 +226,5 @@
     <Folder Include="docs\" />
     <Folder Include="scorebrd\" />
     <Folder Include="tools\linux\" />
-    <Folder Include="tools\win\" />
   </ItemGroup>
 </Project>
